@@ -130,3 +130,4 @@ Para mitigar CWE-833 y CWE-400 sin comprometer los requisitos RAMS, se propone u
    - Verificación del comportamiento de la curva de vaciado neumático (presión nominal $5.0\text{ bar} \to 0\text{ bar}$).
 3. **Análisis de Modos de Fallo y Efectos (FMEA / FMECA) y Árbol de Fallos (FTA):**
    - Demostración cuantitativa de que la combinación de fallo de software + fallo de lazo cableado cumple la tasa $THR < 10^{-9}$ fallos peligrosos/hora requerida para SIL 4.
+
