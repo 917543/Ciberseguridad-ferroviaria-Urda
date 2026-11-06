@@ -15,12 +15,12 @@ Este documento detalla las instrucciones de uso, configuración de entorno y ges
 El repositorio remoto está configurado y vinculado:
 - **URL remota:** https://github.com/917543/Ciberseguridad-ferroviaria-Urda
 - **Nombre:** `Ciberseguridad-ferroviaria-Urda`
-- **Visibilidad actual:** Privado
+- **Visibilidad actual:** Público
 - **Rama principal:** `main`
 
-Para cambiar la visibilidad a público si lo deseas:
+Para cambiar la visibilidad a privado si lo deseas en el futuro:
 ```powershell
-gh repo edit 917543/Ciberseguridad-ferroviaria-Urda --visibility public
+gh repo edit 917543/Ciberseguridad-ferroviaria-Urda --visibility private --accept-visibility-change-consequences
 ```
 
 ## 3. Estructura Documental y Múltiples Repositorios
