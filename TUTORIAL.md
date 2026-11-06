@@ -4,33 +4,39 @@ Este documento detalla las instrucciones de uso, configuración de entorno y ges
 
 ## 1. Requisitos Previos y Herramientas
 
-- **Git**: Sistema de control de versiones (instalado en el sistema).
-- **GitHub CLI (`gh`)**: Herramienta de línea de comandos oficial de GitHub (instalada en el sistema).
-- **Python 3.x** (opcional según las necesidades del módulo).
+- **Git**: Sistema de control de versiones (instalado: 2.50.1).
+- **GitHub CLI (`gh`)**: Herramienta de línea de comandos oficial de GitHub (instalada: 2.103.3).
+- **GitHub Desktop**: Aplicación gráfica oficial de GitHub (instalada: 3.6.10).
+- **Python 3.x**: Opcional según las necesidades del módulo.
 
 ## 2. Configuración con GitHub
 
-Para sincronizar este repositorio local con tu cuenta de GitHub, sigue estos pasos:
+Para sincronizar este repositorio local con tu cuenta de GitHub, puedes usar cualquiera de estas dos opciones:
 
-### Opción A: Mediante GitHub CLI (`gh`)
-1. Iniciar sesión en GitHub desde la terminal:
+### Opción A: Mediante GitHub Desktop (Recomendada con Interfaz Gráfica)
+1. Abre la aplicación **GitHub Desktop** desde el menú Inicio de Windows.
+2. Inicia sesión con tu cuenta de GitHub (`File > Options > Accounts > Sign in`).
+3. Añade este repositorio:
+   - Ve a `File` > `Add Local Repository...`
+   - Selecciona la ruta: `C:\Users\josea_3vii47j.DESKTOP-I95E237\Desktop\tosferina26`
+4. Haz clic en el botón superior **Publish repository** para crearlo en tu cuenta de GitHub (puedes marcarlo como público o privado).
+
+### Opción B: Mediante GitHub CLI (`gh`)
+1. Inicia sesión desde la terminal:
    ```powershell
    gh auth login
    ```
-   Selecciona `GitHub.com`, protocolo `HTTPS` y sigue las instrucciones para autenticarte mediante el navegador web o tu token.
+   Selecciona `GitHub.com` -> `HTTPS` -> autenticación web.
 
-2. Crear y subir el repositorio a GitHub:
+2. Crea y publica el repositorio en GitHub directamente:
    ```powershell
    gh repo create tosferina26 --public --source=. --remote=origin --push
    ```
-   *(O usa `--private` si prefieres que el repositorio sea privado).*
+   *(Cambia `--public` por `--private` si prefieres que sea privado).*
 
-### Opción B: Mediante GitHub Desktop
-Si prefieres una interfaz gráfica, puedes instalar GitHub Desktop ejecutando:
-```powershell
-winget install --id GitHub.GitHubDesktop -e
-```
-Una vez instalado, abre GitHub Desktop, añade este repositorio local (`File > Add Local Repository`) y haz clic en **Publish repository**.
+## 3. Estructura y Múltiples Repositorios
+
+De acuerdo con el flujo de trabajo del proyecto, se utilizarán diferentes repositorios para una misma función/módulo. Mantén cada repositorio con su propio `TUTORIAL.md` actualizado con sus dependencias específicas.
 
 ## 3. Comandos Básicos de Git
 
@@ -47,3 +53,4 @@ Una vez instalado, abre GitHub Desktop, añade este repositorio local (`File > A
   ```powershell
   git push origin main
   ```
+
