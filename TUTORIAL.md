@@ -1,4 +1,4 @@
-# Tutorial de Uso y Dependencias del Proyecto
+# Tutorial de Uso y Dependencias del Proyecto: Ciberseguridad-ferroviaria-Urda
 
 Este documento detalla las instrucciones de uso, configuración de entorno y gestión de repositorios para el proyecto.
 
@@ -7,25 +7,26 @@ Este documento detalla las instrucciones de uso, configuración de entorno y ges
 - **Git**: Sistema de control de versiones (instalado: 2.50.1).
 - **GitHub CLI (`gh`)**: Herramienta de línea de comandos oficial de GitHub (instalada: 2.103.3).
 - **GitHub Desktop**: Aplicación gráfica oficial de GitHub (instalada: 3.6.10).
-- **Python 3.x**: Opcional según las necesidades del módulo.
+- **Python 3.x**: Opcional según las necesidades del módulo o análisis de datos.
 
 ## 2. Repositorio en GitHub
 
-El repositorio remoto ya está creado y vinculado:
-- **URL remota:** https://github.com/917543/tosferina26
+El repositorio remoto está configurado y vinculado:
+- **URL remota:** https://github.com/917543/Ciberseguridad-ferroviaria-Urda
+- **Nombre:** `Ciberseguridad-ferroviaria-Urda`
 - **Visibilidad actual:** Privado
 - **Rama principal:** `main`
 
 Para cambiar la visibilidad a público si lo deseas:
 ```powershell
-gh repo edit 917543/tosferina26 --visibility public
+gh repo edit 917543/Ciberseguridad-ferroviaria-Urda --visibility public
 ```
 
 ## 3. Estructura y Múltiples Repositorios
 
-De acuerdo con el flujo de trabajo del proyecto, se utilizarán diferentes repositorios para una misma función/módulo. Mantén cada repositorio con su propio `TUTORIAL.md` actualizado con sus dependencias específicas.
+De acuerdo con el flujo de trabajo del proyecto, se utilizarán diferentes repositorios para una misma función o módulo. Mantén cada repositorio con su propio `TUTORIAL.md` actualizado con sus dependencias específicas.
 
-## 3. Comandos Básicos de Git
+## 4. Comandos Básicos de Git
 
 - Comprobar estado:
   ```powershell
@@ -40,4 +41,7 @@ De acuerdo con el flujo de trabajo del proyecto, se utilizarán diferentes repos
   ```powershell
   git push origin main
   ```
-
+- Obtener actualizaciones:
+  ```powershell
+  git pull origin main
+  ```
