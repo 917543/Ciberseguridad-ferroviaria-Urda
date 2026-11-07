@@ -1,4 +1,4 @@
-# Estudio Funcional y Propuesta de Vía de Respaldo: Vulnerabilidades SIL 4 (CWE-833, CWE-400) y Pérdida de Comandancia Neumática
+# Estudio Funcional y Propuesta de Vía de Respaldo: Vulnerabilidades SIL 4 (CWE-833, CWE-400 y CWE-617) y Pérdida de Comandancia Neumática
 
 **Proyecto de Tesis:** Ciberseguridad Ferroviaria  
 **Autor:** Jose A. García Manzano  
@@ -13,9 +13,9 @@
 El presente estudio funcional analiza el impacto de vulnerabilidades de software críticas en sistemas embebidos ferroviarios con nivel de integridad de la seguridad **SIL 4**, centrándose específicamente en la **Unidad de Control de Freno (BCU - *Brake Control Unit*)** y el subsistema de **Comandancia Neumática** del material rodante.
 
 El objetivo principal es:
-1. Evaluar formalmente los vectores de fallo y ataque representados por **CWE-833 (Deadlock / Interbloqueo)** y **CWE-400 (Uncontrolled Resource Consumption / Agotamiento No Controlado de Recursos)**.
-2. Determinar las condiciones bajo las cuales estas anomalías provocan la **Pérdida de Comandancia Neumática**.
-3. Diseñar y proponer una **Arquitectura de Vía de Respaldo (Safety Fallback Architecture)** independiente, diversificada y a prueba de fallos (*fail-safe*) que garantice la detención segura del tren incluso ante el colapso total del plano de control software.
+1. Evaluar formalmente los vectores de fallo y ataque representados por la tríada **CWE-833 (Deadlock / Interbloqueo)**, **CWE-400 (Uncontrolled Resource Consumption / Agotamiento No Controlado de Recursos)** y **CWE-617 (Reachable Assertion / Aserción Alcanzable)**.
+2. Determinar las condiciones bajo las cuales estas anomalías provocan la **Pérdida de Comandancia Neumática** y la **Inmovilización Forzosa por Purga Abierta**.
+3. Diseñar y proponer una **Arquitectura de Vía de Respaldo (Safety Fallback Architecture) Bidireccional** independiente, diversificada y a prueba de fallos (*fail-safe*) que garantice tanto la detención segura como la restitución de presión a 5.0 bar para el desbloqueo y reanudación de la marcha.
 
 ---
 
@@ -63,20 +63,27 @@ Un ataque de denegación de servicio o malformación de tráfico (*Flooding / Ma
 
 ---
 
-## 4. Peligro Crítico: Pérdida de Comandancia Neumática
+### 3.3. CWE-617: Aserción Alcanzable (*Reachable Assertion*) y Secuestro por Rutina de Pánico
+En el software de control y comunicaciones de la BCU, la presencia de cláusulas de aserción (`assert()`) diseñadas bajo la premisa errónea de conectividad constante con tierra provoca que, ante una desconexión accidental del LZB o de la sesión RBC de ERTMS Nivel 2, se alcance una condición fatal no recuperable. El RTOS aborta el flujo normal y ejecuta una rutina de pánico que bloquea permanentemente las electroválvulas en posición de purga abierta a la atmósfera, desoyendo cualquier orden de cabina o inyección de aire de los compresores.
 
-La **pérdida de comandancia neumática** se clasifica en dos modos de fallo de criticidad catastrófica:
+---
+
+## 4. Peligro Crítico: Pérdida de Comandancia Neumática e Inmovilización Forzosa
+
+La **pérdida de comandancia neumática** se manifiesta en tres modos de fallo de criticidad catastrófica:
 
 1. **Modo Inhibitorio (Incapacidad de frenar a demanda):**
    - El maquinista o el sistema de protección automática (ETCS / ATP / EBICAB) comanda freno de servicio o urgencia, pero la orden no se traduce en la despresurización de la TFG o el pilotaje de las electroválvulas neumáticas debido al bloqueo de la BCU.
 2. **Modo Intempestivo (Frenado espurio e incontrolado):**
    - Disparo descontrolado o asimétrico del freno de emergencia en bogies aislados, con riesgo de deformación térmica de discos, aplastamiento de ruedas (*wheel flats*) o detención en zonas de alto riesgo (túneles, puentes, tramos neutros sin catenaria).
+3. **Modo de Inmovilización Forzosa por Purga Abierta (Incapacidad de desbloqueo):**
+   - La BCU colapsa por aserción alcanzable (CWE-617) o interbloqueo (CWE-833), manteniendo la TFG en escape continuo ($0\text{ bar}$). El tren queda inmovilizado en vía general de alta velocidad como un obstáculo ciego sin capacidad de reinyectar los $5.0\text{ bar}$ para aflojar los frenos, expuesto a ser alcanzado por trenes traseros (como evidenció el Siniestro de Urda).
 
 ---
 
 ## 5. Propuesta de Arquitectura de Vía de Respaldo (*Safety Fallback Architecture*)
 
-Para mitigar CWE-833 y CWE-400 sin comprometer los requisitos RAMS, se propone una **solución en 4 capas de defensa desacopladas**:
+Para mitigar CWE-833, CWE-400 y CWE-617 sin comprometer los requisitos RAMS, se propone una **solución en 4 capas de defensa desacopladas**:
 
 ```
 +-------------------------------------------------------------------------+
@@ -125,6 +132,7 @@ Para mitigar CWE-833 y CWE-400 sin comprometer los requisitos RAMS, se propone u
 1. **Inyección de Fallos de Software:**
    - Pruebas dirigidas de inyección de inversión de prioridad y mutex contrapuestos para emular CWE-833 en banco HIL (*Hardware-in-the-Loop*).
    - Inyección de tráfico DoS masivo en la interfaz Ethernet/MVB para verificar la estanqueidad temporal frente a CWE-400.
+   - Inyección de cortes abruptos de portadora de vía para verificar la ausencia de aserciones alcanzables no recuperables (CWE-617) y validar el bypass de rearme a 5.0 bar.
 2. **Medición de Tiempos de Respuesta:**
    - Medición de la latencia de desexcitación del lazo de emergencia: target $T_{response} \le 150\text{ ms}$.
    - Verificación del comportamiento de la curva de vaciado neumático (presión nominal $5.0\text{ bar} \to 0\text{ bar}$).

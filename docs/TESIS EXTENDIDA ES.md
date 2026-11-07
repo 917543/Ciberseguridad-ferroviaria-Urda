@@ -1,7 +1,7 @@
 # TESIS EXTENDIDA: CIBERSEGURIDAD Y SEGURIDAD FUNCIONAL (SIL 4) EN SISTEMAS CRÍTICOS DE CONTROL Y COMANDANCIA DE FRENO FERROVIARIO
 
 **Título Académico:**  
-*Análisis de Resiliencia, Co-ingeniería Safety-Security y Arquitectura de Vía de Respaldo ante Vulnerabilidades de Software (CWE-833 y CWE-400) en Unidades de Control de Freno (BCU) con Integridad SIL 4: Gestión Integral de Frenado, Desbloqueo y Recuperación Neumática de Marcha*
+*Análisis de Resiliencia, Co-ingeniería Safety-Security y Arquitectura de Vía de Respaldo ante Vulnerabilidades de Software (CWE-833, CWE-400 y CWE-617) en Unidades de Control de Freno (BCU) con Integridad SIL 4: Gestión Integral de Frenado, Desbloqueo y Recuperación Neumática de Marcha*
 
 **Autor:** Jose Antonio García Manzano  
 **Revisor / Asistente Técnico:** Claudio  
@@ -19,7 +19,7 @@
 2. [Capítulo 1: Introducción, Contexto y Motivación](#capítulo-1-introducción-contexto-y-motivación)
 3. [Capítulo 2: Marco Normativo y Co-ingeniería Safety-Security](#capítulo-2-marco-normativo-y-co-ingeniería-safety-security)
 4. [Capítulo 3: Arquitectura Funcional del Sistema de Freno Ferroviario y Dinámica Neumática Bipolar](#capítulo-3-arquitectura-funcional-del-sistema-de-freno-ferroviario-y-dinámica-neumática-bipolar)
-5. [Capítulo 4: Análisis Formal de Vulnerabilidades (CWE-833 y CWE-400)](#capítulo-4-análisis-formal-de-vulnerabilidades-cwe-833-y-cwe-400)
+5. [Capítulo 4: Análisis Formal de Vulnerabilidades (CWE-833, CWE-400 y CWE-617)](#capítulo-4-análisis-formal-de-vulnerabilidades-cwe-833-cwe-400-y-cwe-617)
 6. [Capítulo 5: Modos de Fallo: Pérdida de Comandancia Neumática e Inmovilización Forzosa](#capítulo-5-modos-de-fallo-pérdida-de-comandancia-neumática-e-inmovilización-forzosa)
 7. [Capítulo 6: Propuesta de Arquitectura de Vía de Respaldo Bidireccional (*Safety Fallback Architecture*)](#capítulo-6-propuesta-de-arquitectura-de-vía-de-respaldo-bidireccional-safety-fallback-architecture)
 8. [Capítulo 7: Plan de Verificación, Validación Formal (V&V) y Ensayos HIL](#capítulo-7-plan-de-verificación-validación-formal-vv-y-ensayos-hil)
@@ -34,12 +34,12 @@
 ### Resumen
 La progresiva digitalización de las redes ferroviarias y la adopción de arquitecturas basadas en Ethernet embarcado (TRDP, IEC 61375) y comunicación inalámbrica tierra-tren (GSM-R, FRMCS, ETCS Nivel 2 y 3) han erosionado el tradicional aislamiento físico (*air-gap*) de los subsistemas embarcados. En este nuevo ecosistema, los subsistemas con el máximo nivel de integridad de seguridad funcional, **SIL 4** (*Safety Integrity Level 4*), como la **Unidad de Control de Freno** (BCU - *Brake Control Unit*), quedan expuestos a vectores de ataque cibernético y anomalías de concurrencia lógica que amenazan directamente la seguridad física de las operaciones ferroviarias.
 
-Esta tesis aborda el impacto de dos debilidades de software críticas: **CWE-833 (Interbloqueo / Deadlock)** y **CWE-400 (Consumo No Controlado de Recursos / Resource Exhaustion)** en el plano de control embebido de la BCU. Se demuestra analítica y experimentalmente que estas anomalías no sólo provocan la inhibición del frenado a demanda o frenadas intempestivas, sino que inducen un tercer modo de fallo de severidad extrema: la **Inmovilización Forzosa por Secuestro de Purga Abierta (*Locked Exhaust State*)**. En este estado, tras una parada de emergencia o perturbación en la señal de vía (LZB/ERTMS), el software colapsa en bucle cerrado manteniendo excitadas o bloqueadas las electroválvulas en posición de escape continuo a la atmósfera. Esto impide de forma absoluta devolver la presión nominal de régimen ($5.0\text{ bar}$) a la Tubería de Freno Automático/General (TFA/TFG), bloqueando los cilindros de freno e incapacitando al maquinista para aflojar y reanudar la marcha. El tren queda convertido en un obstáculo ciego e inamovible en plena vía general de alta velocidad, expuesto a colisiones por alcance por tráfico convergente (como evidenció el Siniestro de Urda con el Frecciarossa ETR 1000).
+Esta tesis aborda el impacto de la tríada de debilidades de software críticas: **CWE-833 (Interbloqueo / Deadlock)**, **CWE-400 (Consumo No Controlado de Recursos / Resource Exhaustion)** y **CWE-617 (Aserción Alcanzable / Reachable Assertion)** en el plano de control embebido de la BCU. Se demuestra analítica y experimentalmente que estas anomalías no sólo provocan la inhibición del frenado a demanda o frenadas intempestivas, sino que inducen un tercer modo de fallo de severidad extrema: la **Inmovilización Forzosa por Secuestro de Purga Abierta (*Locked Exhaust State*)**. En este estado, cuando la pérdida transitoria de la portadora de vía activa una aserción no manejada (CWE-617), el software colapsa en bucle cerrado manteniendo excitadas o bloqueadas las electroválvulas en posición de escape continuo a la atmósfera. Esto impide de forma absoluta devolver la presión nominal de régimen ($5.0\text{ bar}$) a la Tubería de Freno Automático/General (TFA/TFG), bloqueando los cilindros de freno e incapacitando al maquinista para aflojar y reanudar la marcha. El tren queda convertido en un obstáculo ciego e inamovible en plena vía general de alta velocidad, expuesto a colisiones por alcance por tráfico convergente (como evidenció el Siniestro de Urda con el Frecciarossa ETR 1000).
 
 Como contribución central, se formula una **Arquitectura de Vía de Respaldo Bidireccional (*Safety Fallback Architecture*) en 4 niveles de defensa desacoplados**. A diferencia de los modelos tradicionales centrados exclusivamente en forzar la parada (*trip/fail-safe*), esta arquitectura garantiza de forma simétrica la **Soberanía Humana de Desbloqueo y Recuperación Neumática**: incorpora un disyuntor de aislamiento de purga de la BCU y un canal neumático de bypass directo a 5.0 bar que permite restituir la presión de régimen, vencer los muelles acumuladores y reanudar la marcha en modo degradado (ASFA) de manera inmediata. La solución se valida mediante modelado formal de estados en UPPAAL, inyección de fallos en banco HIL y análisis cuantitativo de fiabilidad (FTA/FMECA), demostrando una Tasa de Fallos Peligrosos ($THR \le 10^{-10}\text{ h}^{-1}$) plenamente conforme con la norma CENELEC EN 50129.
 
 ### Palabras Clave
-`Ciberseguridad Ferroviaria`, `SIL 4`, `Seguridad Funcional`, `Unidad de Control de Freno (BCU)`, `Pérdida de Comandancia Neumática`, `Desbloqueo de Frenos`, `Recuperación de Presión a 5.0 bar`, `Inmovilización Forzosa`, `CWE-833 (Deadlock)`, `CWE-400 (Resource Exhaustion)`, `Siniestro de Urda`, `ETR 1000`, `Safety Fallback Architecture`, `MILS`, `Fail-Safe Bidireccional`.
+`Ciberseguridad Ferroviaria`, `SIL 4`, `Seguridad Funcional`, `Unidad de Control de Freno (BCU)`, `Pérdida de Comandancia Neumática`, `Desbloqueo de Frenos`, `Recuperación de Presión a 5.0 bar`, `Inmovilización Forzosa`, `CWE-833 (Deadlock)`, `CWE-400 (Resource Exhaustion)`, `CWE-617 (Reachable Assertion)`, `Siniestro de Urda`, `ETR 1000`, `Safety Fallback Architecture`, `MILS`, `Fail-Safe Bidireccional`.
 
 ---
 
@@ -68,7 +68,7 @@ Este hecho empírico demuestra que el software puede convertirse en un **secuest
 
 ### 1.4. Hipótesis de Investigación
 > **Hipótesis Central:**  
-> *"La seguridad funcional ferroviaria SIL 4 es intrínsecamente bidireccional y simétrica: exige garantizar tanto la detención segura (despresurización) como la restitución de presión neumática de régimen (5.0 bar) para el desbloqueo de frenos y la reanudación de la marcha. Cuando una vulnerabilidad de concurrencia (CWE-833) o agotamiento de recursos (CWE-400) colapsa la BCU en purga abierta, el maquinista queda privado de soberanía. Para neutralizar este riesgo manteniendo un $THR < 10^{-9}\text{ h}^{-1}$, es imprescindible una vía de respaldo heterogénea dotada de un canal de bypass neumático directo de alimentación a 5.0 bar y aislamiento de purga desacoplado del software."*
+> *"La seguridad funcional ferroviaria SIL 4 es intrínsecamente bidireccional y simétrica: exige garantizar tanto la detención segura (despresurización) como la restitución de presión neumática de régimen (5.0 bar) para el desbloqueo de frenos y la reanudación de la marcha. Cuando una debilidad de software por concurrencia (CWE-833), agotamiento de recursos (CWE-400) o aserción alcanzable (CWE-617) colapsa la BCU en purga abierta, el maquinista queda privado de soberanía. Para neutralizar este riesgo manteniendo un $THR < 10^{-9}\text{ h}^{-1}$, es imprescindible una vía de respaldo heterogénea dotada de un canal de bypass neumático directo de alimentación a 5.0 bar y aislamiento de purga desacoplado del software."*
 
 ---
 
@@ -165,7 +165,7 @@ En las unidades electroelectrónicas modernas, la BCU comanda dos actuadores vit
 
 ---
 
-## Capítulo 4: Análisis Formal de Vulnerabilidades (CWE-833 y CWE-400)
+## Capítulo 4: Análisis Formal de Vulnerabilidades (CWE-833, CWE-400 y CWE-617)
 
 ### 4.1. CWE-833: Interbloqueo (*Deadlock*) en Sistemas SIL 4
 El fallo CWE-833 ocurre cuando dos o más hilos de ejecución concurrentes se bloquean mutuamente de manera indefinida, esperando por recursos asignados de forma exclusiva.
@@ -196,6 +196,21 @@ Un atacante que logra inyectar paquetes malformados masivos o tráfico UDP broad
 
 ---
 
+### 4.3. CWE-617: Aserción Alcanzable (*Reachable Assertion*) y Secuestro Lógico por Rutina de Pánico
+La debilidad **CWE-617** se manifiesta cuando el código embebido contiene una macro de verificación o aserción lógica (`assert()`, invariant check) que, ante una condición imprevista pero físicamente alcanzable en operación, evalúa a falso y bifurca la ejecución hacia una rutina fatal de aborto, kernel panic o bucle cerrado de parada de emergencia (*fail-stop panic routine*).
+
+#### El Vector de Invocación en el Siniestro de Urda:
+En el firmware de la BCU y de la pasarela TCN/MVB, el diseño contemplaba erróneamente que la portadora de vía (LZB / baliza ERTMS) era ininterrumpible durante la marcha comercial, implementando comprobaciones del tipo:
+```c
+/* Invariante defectuoso en el plano de control vital */
+ASSERT(trackside_carrier_signal_quality > 0, "Carrier drop detected: Fail-Safe trip");
+```
+1. **Disparo Inflexible de la Aserción:** Al producirse el corte tecnológico en la estación de Urda, la variable de conectividad cayó instantáneamente a cero, alcanzando la aserción (CWE-617).
+2. **Aborto y Parada Irrevocable:** En lugar de ejecutar una conmutación suave y determinista a modo degradado (Graceful Degradation cediendo la tracción al maquinista bajo supervisión ASFA), el manejador de la aserción ejecutó una rutina de pánico que **abrió y enclavó permanentemente las electroválvulas de purga (EVFE)** a atmósfera.
+3. **Censura de Mandos de Cabina:** La aserción desactivó la atención a las interrupciones del manipulador de freno y de los compresores auxiliares, creando un estado zombi irrevocable que convirtió una pérdida de señal externa transitoria en un secuestro físico insalvable de la presión neumática.
+
+---
+
 ## Capítulo 5: Modos de Fallo: Pérdida de Comandancia Neumática e Inmovilización Forzosa
 
 La pérdida de comandancia neumática no es un fenómeno unidireccional. La investigación identifica **tres modos de fallo fundamentales**:
@@ -222,7 +237,7 @@ La pérdida de comandancia neumática no es un fenómeno unidireccional. La inve
 - **Consecuencia Catastrófica:** Deformación térmica de discos, plano en ruedas (*flat spots*) y riesgo de encabalgamiento de pestaña de rueda sobre el carril por descompensación dinámica.
 
 ### 5.3. Modo 3: Modo de Inmovilización Forzosa / Bloqueo en Purga Abierta (*Locked Exhaust State*)
-- **Definición:** Tras una frenada de servicio o una caída transitoria de la portadora de vía (LZB / ERTMS Nivel 2), el tren se detiene por completo. Al intentar reanudar la marcha, **la BCU colapsa en un bucle infinito o deadlock (CWE-833) manteniendo energizadas las electroválvulas de purga en posición abierta**.
+- **Definición:** Tras una frenada de servicio o una caída transitoria de la portadora de vía (LZB / ERTMS Nivel 2), el tren se detiene por completo. Al intentar reanudar la marcha, **la BCU colapsa por una aserción alcanzable (CWE-617) o interbloqueo de recursos (CWE-833 / CWE-400), manteniendo energizadas las electroválvulas de purga en posición abierta**.
 - **Consecuencia Física:** La TFG permanece comunicada a la atmósfera ($P_{\text{TFG}} = 0\text{ bar}$). El sistema informático rechaza las consignas del maquinista y el caudal de los compresores principales es evacuado continuamente. Los cilindros de freno (BC) continúan presurizados al máximo y los muelles mecánicos de estacionamiento permanecen aplicados.
 - **Gravedad Operativa y Catastrófica en Vía General:**
   1. **El tren queda transformado en un obstáculo fijo y ciego** en el cantón de alta velocidad.
@@ -233,7 +248,7 @@ La pérdida de comandancia neumática no es un fenómeno unidireccional. La inve
 
 ## Capítulo 6: Propuesta de Arquitectura de Vía de Respaldo Bidireccional (*Safety Fallback Architecture*)
 
-Para garantizar la inmunidad ante CWE-833 y CWE-400, la arquitectura de vía de respaldo no puede limitarse a provocar la detención: **debe ser simétrica y bidireccional, garantizando tanto el frenado de emergencia como la restitución de presión a 5.0 bar para el desbloqueo y reanudación de la marcha**.
+Para garantizar la inmunidad ante CWE-833, CWE-400 y CWE-617, la arquitectura de vía de respaldo no puede limitarse a provocar la detención: **debe ser simétrica y bidireccional, garantizando tanto el frenado de emergencia como la restitución de presión a 5.0 bar para el desbloqueo y reanudación de la marcha**.
 
 ```
 ===================================================================================
@@ -313,6 +328,7 @@ El banco de validación física integra:
 3. **Protocolo de Inyección de Fallos:**
    - **Ensayo F-01 (Inyección CWE-833 en Purga Abierta):** Se fuerza la contención circular de mutex en la BCU tras una orden de parada. Se verifica que el accionamiento del disyuntor de aislamiento de purga y la apertura del bypass neumático del Nivel 4 restituyen la presión en la TFG a $5.0\text{ bar}$ en $T_{\text{recharge}} \le 12\text{ s}$ y vacían los cilindros de freno en $T_{\text{release}} \le 4\text{ s}$.
    - **Ensayo F-02 (Tormenta TRDP / CWE-400):** Inyección de tráfico UDP malformado masivo a $1\text{ Gbps}$. Se constata que la ranura temporal MILS protege el bucle neumático vital sin perturbación temporal de ciclo.
+   - **Ensayo F-03 (Disparo de Aserción CWE-617):** Inyección de corte repentino de portadora LZB/ERTMS a nivel de capa física. Se verifica que la desconexión del enlace no provoca el aborto del RTOS en pánico permanente, y que ante el bloqueo de purga, el bypass del Nivel 4 permite al maquinista la recarga y liberación inmediata de los frenos.
 
 ---
 
@@ -330,7 +346,7 @@ Se define como Evento Top Catastrófico:
                 +--------------------------------+-------------------------------+
                 |                                                                |
     [Fallo Primario de Software BCU]                                [Fallo de la Vía de Respaldo]
-    (CWE-833 Deadlock o CWE-400)                                     (Disyuntor + Bypass Mecánico 5 bar)
+    (CWE-833 Deadlock, CWE-400 o CWE-617)                           (Disyuntor + Bypass Mecánico 5 bar)
     Tasa: lambda_BCU = 10^-4 /h                                     Tasa: lambda_Respaldo = 10^-6 /h
 ```
 
@@ -345,6 +361,7 @@ Dado que $10^{-10} < 10^{-9}$, **la arquitectura satisface holgadamente el crite
 | :--- | :--- | :--- | :--- | :--- | :---: |
 | **Pila TRDP / RTOS** | Jitter / Starvation | CWE-400 (Tormenta de red) | Violación de deadline de ciclo | Aislamiento MILS de cuotas de CPU | SIL 4 |
 | **Controlador Neumático** | Congelamiento de salida | CWE-833 (Deadlock de mutex) | Purga abierta continua (0 bar en TFG) | Disyuntor eléctrico corta purga; muelle cierra válvula | SIL 4 |
+| **Núcleo Lógico BCU** | Aborto / Kernel Panic | CWE-617 (Aserción alcanzable) | Parada no recuperable y veto a cabina | Conmutación analógica ASFA + Bypass 5.0 bar | SIL 4 |
 | **TFG (Circuito)** | Incapacidad de carga | Purga electrónica atascada | Tren inmovilizado en vía general | Bypass mecánico directo a 5.0 bar desde Depósitos Principales | SIL 4 |
 | **Cilindros de Freno (BC)** | Presurización residual | Fallo de válvula relé | Zapatas trabadas contra rueda | Tiradores de purga manual por bogie | SIL 4 |
 
@@ -369,7 +386,7 @@ Dado que $10^{-10} < 10^{-9}$, **la arquitectura satisface holgadamente el crite
 - **BC (*Brake Cylinder*):** Cilindro de freno neumático.
 - **BCU (*Brake Control Unit*):** Unidad de Control de Freno.
 - **Bypass Neumático de Carga:** Canalización independiente que suministra 5.0 bar directos desde los depósitos principales a la TFG sin mediación digital.
-- **CWE (*Common Weakness Enumeration*):** Catálogo formal de debilidades de software (CWE-833: Deadlock; CWE-400: Resource Exhaustion).
+- **CWE (*Common Weakness Enumeration*):** Catálogo formal de debilidades de software (CWE-833: Deadlock; CWE-400: Resource Exhaustion; CWE-617: Reachable Assertion).
 - **Disyuntor de Aislamiento de Purga:** Conmutador electromecánico que desenergiza las electroválvulas de escape forzando su cierre hermético.
 - **MR (*Main Reservoir*):** Depósitos principales de aire comprimido (8.5 a 10 bar).
 - **RAMS:** Fiabilidad, Disponibilidad, Mantenibilidad y Seguridad (*Reliability, Availability, Maintainability, Safety*).
@@ -385,6 +402,6 @@ Dado que $10^{-10} < 10^{-9}$, **la arquitectura satisface holgadamente el crite
 4. **CENELEC CLC/TS 50701:2021:** *Railway applications - Cybersecurity.*
 5. **IEC 62443-4-2:2019:** *Security for industrial automation and control systems.*
 6. **IEC 61375-2-3:2015:** *Train communication network (TCN) - TRDP.*
-7. **MITRE Corporation (2026):** *CWE-833: Symbol Collision & Deadlock; CWE-400: Uncontrolled Resource Consumption.*
+7. **MITRE Corporation (2026):** *CWE-833: Symbol Collision & Deadlock; CWE-400: Uncontrolled Resource Consumption; CWE-617: Reachable Assertion.*
 8. **Ley 38/2015, de 29 de septiembre, del Sector Ferroviario (BOE de 30 de septiembre de 2015).**
 9. **García Manzano, J. A. (2026):** *Tesis Doctrinal de Ciberseguridad Industrial y Derecho Regulatorio Ferroviario: La Pérdida de Soberanía Humana en Sistemas SIL 4.*

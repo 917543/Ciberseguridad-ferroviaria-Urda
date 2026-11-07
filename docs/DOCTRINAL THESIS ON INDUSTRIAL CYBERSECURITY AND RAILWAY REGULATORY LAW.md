@@ -23,7 +23,7 @@ The object of this analysis is to determine the material, software, and pneumati
 Given the logical secrecy of the judicial proceedings and the lack of public access to the raw memory dumps of the train's CPU, this report applies the scientific methodology of Behavioral Black-Box Reverse Forensic Engineering. The validity of the logical conclusions is empirically grounded on the asymmetry of responses within the scenario:
 1. The Common Failure Vector: At 08:30 hours, an IT failure due to technological obsolescence at the Urda station caused the trackside LZB system to crash, affecting two operating trains equally and at the same second: Renfe's AVE and Iryo's Frecciarossa.
 2. The Resilient Response (Renfe's AVE): Following the preventive-automatic braking imposed by the trackside system, the AVE's software immediately yielded full sovereignty to the driver. The driver switched to the secondary analog system (ASFA), maintaining 100% physical command from the cab. The AVE was able to move and obey traffic orders in degraded mode.
-3. The Lockup Response (Iryo): The new operator's software collapsed into an infinite reconnection loop. The CPU took logical control of the brake purge valves, keeping them in an open position and locking the cab at 0% operational capacity. The fact that the AVE was able to move empirically proves that Adif's infrastructure did not physically force the immobilization, isolating the failure within the ETR 1000's code.
+3. The Lockup Response (Iryo): The new operator's software collapsed when an unhandled logical assertion was reached (CWE-617) upon the loss of connectivity, triggering a circular deadlock (CWE-833) and computation resource starvation (CWE-400). The CPU assumed exclusive logical control over the brake purge valves, keeping them locked in an open exhaust position and reducing cab operability to 0%. The fact that the AVE was able to move empirically proves that Adif's infrastructure did not physically force the immobilization, isolating the failure within the ETR 1000's code.
 
 ---
 
@@ -56,7 +56,7 @@ The train's software applied an extreme Safety criterion (when in doubt, immobil
 
 ### CHAPTER VII: CONCLUSIONS ON DIRECT LIABILITY BY OMISSION
 The link of legal causality in the Urda disaster cannot find refuge in unpredictability. In the regulatory law of mass transit, prior and documented knowledge of a catastrophic vulnerability eliminates any fortuitous nature of the event, shifting liability to the domain of gross negligence by conscious omission:
-1. Liability for Non-Paralization of the Fleet: Having formally verified in parliamentary sessions and technical audits since the year 2025 that the units suffered these deadlocks and losses of command when left in the dark, regulatory authorities (AESF) and operating companies had a strict legal obligation to immediately paralyze their operation on that line. Keeping the trains in commercial operation constitutes a clear failure in risk control.
+1. Liability for Non-Paralization of the Fleet: Having formally verified in parliamentary sessions and technical audits since the year 2025 that the units suffered from reachable assertions (CWE-617), circular deadlocks (CWE-833), and resource starvation (CWE-400) when losing trackside carrier signals, regulatory authorities (AESF) and operating companies had a strict legal obligation to immediately paralyze their operation on that line. Keeping the trains in commercial operation constitutes a clear failure in risk control.
 2. Negligent Concurrence of Traffic Control: This institutional omission created the physical conditions of danger, which materialized due to the subsequent and unjustifiable human decision of Adif's control center operators to send the trailing AVE at 200 km/h down the same block of track without verifying the physical clearing of the section.
 
 ---
@@ -65,7 +65,7 @@ The link of legal causality in the Urda disaster cannot find refuge in unpredict
 To eradicate this systemic risk and ensure strict compliance with Article 64 of the Railway Sector Act, a mandatory three-phase plan is proposed:
 
 1. **Phase 1: Code Patch and OS Hardening (Software)**
-   - Reprogramming of the data bus (TCN/TRDP) and BCU RTOS. Eradication of Coffman circular deadlocks (CWE-833) between vital pneumatic loops and communication stacks.
+   - Reprogramming of the data bus (TCN/TRDP) and BCU RTOS. Eradication of Coffman circular deadlocks (CWE-833) between vital pneumatic loops and communication stacks, and elimination of reachable assertions (CWE-617) that abort into panic routines upon external signal loss.
    - Implementation of MILS (*Multiple Independent Levels of Security*) strict CPU quota isolation, preventing network interrupt storms (CWE-400) from starving the vital braking and pressure release cycles. Upon losing trackside carrier signals, the software must perform graceful degradation, shifting to a passive carrier state that keeps manual cab sovereignty intact.
 
 2. **Phase 2: Pure Mechanical-Pneumatic Bypass and Safety Loop Override (Hardware)**
