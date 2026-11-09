@@ -3,7 +3,8 @@
 **Título Académico:**  
 *Análisis de Resiliencia, Co-ingeniería Safety-Security y Arquitectura de Vía de Respaldo ante Vulnerabilidades de Software (CWE-833, CWE-400 y CWE-617) en Unidades de Control de Freno (BCU) con Integridad SIL 4: Gestión Integral de Frenado, Desbloqueo y Recuperación Neumática de Marcha*
 
-**Autor:** Jose Antonio García Manzano  
+**Autor:** Jose A. García Manzano  
+**Credenciales:** Google Cybersecurity Certified Professional  
 **Revisor / Asistente Técnico:** Claudio  
 **Fecha:** Noviembre 2026  
 **Proyecto:** Ciberseguridad Ferroviaria - Urda  
@@ -243,6 +244,9 @@ La pérdida de comandancia neumática no es un fenómeno unidireccional. La inve
   1. **El tren queda transformado en un obstáculo fijo y ciego** en el cantón de alta velocidad.
   2. En líneas de tráfico denso, los sistemas de señalización pueden experimentar perturbaciones asociadas a la misma avería de infraestructura, induciendo a los operadores de control de tráfico a autorizar la marcha a la vista o rebasar señales a convoyes posteriores que circulan a más de 200 km/h.
   3. **El tiempo de inmovilización no controlado (13 minutos en Urda)** excede con creces los márgenes de seguridad operativa. La privación de soberanía a la tripulación impide apartar el tren a un escape, vía secundaria o andén, configurando un escenario de colisión por alcance inminente.
+  4. **Inevitabilidad Cinemática de Ruptura de la Cadena de Alcance:** Conforme al análisis cinemático de movimiento rectilíneo uniforme ($s = v \cdot t$), si la arquitectura de software hubiera garantizado la soberanía de afloje y permitido a la maquinista iniciar la marcha en modo degradado / marcha a la vista ($v = 40\text{ km/h} \approx 11.11\text{ m/s}$) durante los $780\text{ s}$ (13 minutos) de crisis, la distancia recorrida habría alcanzado:
+     $$s = 11.11\text{ m/s} \cdot 780\text{ s} = 8,665.8\text{ metros}$$
+     Al avanzar más de $8.66\text{ km}$, el tren habría liberado íntegramente el cantón de bloqueo (cuya longitud oscila habitualmente entre 4 y 6 km), conmutando los circuitos de vía mecánicos y anulando la geometría física del alcance por el tren posterior.
 
 ---
 
