@@ -32,5 +32,5 @@ The behavior observed on the integrated data bus suggests the potential concurre
 * **Analog Safeguard:** Physical installation in the cab of a direct analog pneumatic isolation valve independent of the BCU to preserve human sovereignty during emergencies.
 
 ---
-**Integrity Validation:** Authorship and consolidation date certified via cryptographic **SHA hash** in the repository `https://github.com`.
+**Integrity Validation:** Authorship and consolidation date certified via cryptographic **SHA hash** in the repository `https://github.com/917543/Ciberseguridad-ferroviaria-Urda`.
 
