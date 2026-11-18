@@ -171,7 +171,7 @@ Para erradicar este riesgo sistémico y garantizar el cumplimiento estricto del 
 
 #### Fuentes Parlamentarias, Hemerográficas y de Acreditación
 * Diario de Sevilla. (2025). *Incidencias de comunicación en la red de alta velocidad: Los trenes de nueva generación pierden la señal de tierra y tardan en reconectarse*. Grupo Joly.
-* García Manzano, J. A. (2026). *Ciberseguridad-ferroviaria-Urda: La pérdida de soberanía humana en sistemas SIL 4* [Repositorio de investigación y verificación]. GitHub. https://github.com
+* García Manzano, J. A. (2026). *Ciberseguridad-ferroviaria-Urda: La pérdida de soberanía humana en sistemas SIL 4* [Repositorio de investigación y verificación]. GitHub. https://github.com/917543/Ciberseguridad-ferroviaria-Urda
 * Google Career Certificates. (2025). *Certificado de Ciberseguridad de Google (Analista de nivel inicial)* [Programa de 8 cursos: fundamentos de ciberseguridad, gestión de riesgos, seguridad de redes, Linux y SQL, gestión de activos y amenazas, detección y respuesta a incidentes, automatización con Python y preparación profesional]. Coursera / Google.
 * Senado de España. (2025). *Diario de Sesiones de la Comisión de Transportes y Movilidad Sostenible: Comparecencia de los operadores ferroviarios sobre incidencias y tiempos de reconexión en la red de alta velocidad*. Cortes Generales.
 
