@@ -1,411 +1,185 @@
-# TESIS EXTENDIDA: CIBERSEGURIDAD Y SEGURIDAD FUNCIONAL (SIL 4) EN SISTEMAS CRÍTICOS DE CONTROL Y COMANDANCIA DE FRENO FERROVIARIO
+[TESIS_EXTENDIDA_ES.md](https://github.com/user-attachments/files/35055104/TESIS_EXTENDIDA_ES.md)
+# 📚 TESIS DOCTRINAL DE CIBERSEGURIDAD INDUSTRIAL Y DERECHO REGULATORIO FERROVIARIO
 
-**Título Académico:**  
-*Análisis de Resiliencia, Co-ingeniería Safety-Security y Arquitectura de Vía de Respaldo ante Vulnerabilidades de Software (CWE-833, CWE-400 y CWE-617) en Unidades de Control de Freno (BCU) con Integridad SIL 4: Gestión Integral de Frenado, Desbloqueo y Recuperación Neumática de Marcha*
+**TÍTULO:** La Pérdida de Soberanía Humana en Sistemas SIL 4: Análisis Funcional de la Presunta Inmovilización por Software del Material Rodante ETR 1000 en el Siniestro de Urda.  
+**AUTOR:** Jose A. García Manzano  
+**CALIDAD DE LA CONTRIBUCIÓN:** Ciudadano Colaborador con la Justicia (Art. 259 LECrim) y Analista de Ciberseguridad de nivel inicial (Certificado por Google).  
+**NATURALEZA DEL DOCUMENTO:** Tesis doctrinal, consulta técnica e hipótesis lógica de vía de respaldo sujeta a verificación pericial oficial.  
+**FECHA DE CONSOLIDACIÓN:** 18 de noviembre de 2026  
+**LICENCIA:** Creative Commons Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0)  
+
+---
+
+### PREÁMBULO METODOLÓGICO: DECLARACIÓN DE ROL CIUDADANO Y CARÁCTER DE HIPÓTESIS A VERIFICAR
+El autor formula la presente aportación estrictamente en calidad de **ciudadano colaborador interesado en la seguridad pública**, al amparo del deber y derecho cívico recogido en el Artículo 259 de la Ley de Enjuiciamiento Criminal (Agencia Estatal Boletín Oficial del Estado [BOE], 1882), complementado con su capacitación técnica como analista de ciberseguridad de nivel inicial certificado por Google (Google Career Certificates, 2025).
+
+Se hace constar de forma expresa que este documento **no constituye un dictamen pericial oficial ni pretende aportar pruebas materiales directas del sumario**, dado que el autor carece de titulación universitaria en ingeniería ferroviaria tradicional y no dispone de acceso a los volcados de memoria reservados de los registradores jurídicos (cajas negras) de la infraestructura o del material rodante. Este trabajo se plantea exclusivamente como una **hipótesis lógica, cinemática y de arquitectura de software a verificar**, formulada como vía de respaldo técnico-jurídica a partir de la observación empírica del comportamiento asimétrico de los sistemas físicos del escenario (García Manzano, 2026). Su propósito consiste en ofrecer una guía de control para que los peritos judiciales y los inspectores de los organismos competentes, mediante los registros de telemetría bajo custodia oficial, determinen si la arquitectura lógica embarcada incurrió en la descrita privación de comandancia al maquinista e inmovilización forzosa del convoy.
+
+---
+
+### CAPÍTULO I: OBJETO DEL ANÁLISIS Y DELIMITACIÓN DEL PROBLEMA
+El presente estudio tiene por objeto formular una hipótesis razonada sobre la causa raíz material, informática y neumática que habría provocado la inmovilización prolongada del tren Frecciarossa ETR 1000 (Operador Iryo / Fabricante Hitachi) durante aproximadamente 13 minutos críticos en la vía general de alta velocidad en Urda (Toledo). La investigación plantea la necesidad de verificar si dicha detención respondió no a una avería mecánica fortuita ordinaria, sino a una debilidad sistémica en el diseño de la arquitectura de software embarcada. De confirmarse este supuesto, dicho sistema lógico intermedio habría restringido los mecanismos de recuperación de emergencia, privando de forma temporal o irreversible a la maquinista habilitada de su capacidad reglamentaria para comandar la unidad desde la cabina y comprometiendo las condiciones de seguridad operativa exigidas por la Ley 38/2015 del Sector Ferroviario (BOE, 2015a) y el Reglamento (UE) 2016/798 sobre seguridad ferroviaria (Parlamento Europeo y Consejo de la Unión Europea, 2016b).
+
+---
+
+### CAPÍTULO II: RECONSTRUCCIÓN FORENSE CRONOLÓGICA DE LOS 13 MINUTOS DE CRISIS
+Ante la reserva de sumario y la imposibilidad de auditar directamente los volcados de memoria cruda de la unidad central de procesamiento (CPU) del convoy, este trabajo aplica una metodología de ingeniería inversa basada en el análisis de comportamiento externo (*Black-Box Behavioral Analysis*). La secuencia temporal reconstruida a partir de los datos públicos disponibles sustenta la hipótesis de una anomalía lógica:
+
+* **08:30:00 - El Detonante Común:** Una incidencia informática en los sistemas de tierra de la estación de Urda provoca la caída instantánea de la portadora del sistema de señalización LZB. Esta pérdida de comunicación de la infraestructura de Adif afecta de manera simultánea a dos circulaciones próximas: un tren AVE de Renfe y un tren Frecciarossa de Iryo, activando en ambos la frenada automática preventiva por seguridad intrínseca.
+* **08:32:00 - La Asimetría de Respuesta (El Grupo de Control):** Tras la detención del tren AVE de Renfe, su arquitectura lógica habría aislado el canal de comunicaciones externo caído, devolviendo el control operativo al maquinista. Este conmuta al sistema analógico de respaldo (ASFA / Conducción Visual), conservando la comandancia física desde cabina y permitiendo reanudar la marcha en modo degradado.
+* **08:35:00 - Presunto Colapso Lógico (*Deadlock* en el Tren Delantero):** En la unidad Frecciarossa (Iryo), los hilos de ejecución encargados de la gestión de comunicaciones y tracción habrían entrado en una dependencia circular mutua (*deadlock*). Bajo esta hipótesis, la CPU monopoliza sus ciclos de cómputo en un bucle continuo de reconexión digital, manteniendo las electroválvulas neumáticas de la Unidad de Control de Freno (BCU) bloqueadas en posición de escape abierta y purgando el aire de la Tubería de Freno Automático (TFA), lo que anularía la operatividad de los mandos en cabina.
+* **08:41:00 - Notificación de Inmovilización desde Cabina:** Tras agotar los procedimientos manuales de rearme previstos en el reglamento operativo, la maquinista de Iryo comunica por radiotelefonía al Puesto de Mando la imposibilidad de mover el convoy, indicando que los frenos permanecen bloqueados neumáticamente sin responder a las órdenes físicas de cabina.
+* **08:54:00 - El Impacto por Alcance:** Transcurridos 13 minutos de inmovilización forzosa del convoy delantero, el Centro de Regulación y Control emite una autorización verbal de rebase al tren AVE que circulaba detrás. Al encontrarse la vía obstruida por una unidad de 200 metros sin capacidad de tracción, se produce la colisión por alcance a alta velocidad.
+
+---
+
+### CAPÍTULO III: METODOLOGÍA FORENSE DE CAJA NEGRA Y ASIMETRÍA DINÁMICA (EL GRUPO DE CONTROL)
+La solidez deductiva de la hipótesis planteada se sustenta en un análisis comparativo basado en la respuesta asimétrica de dos sistemas distintos sometidos al mismo estímulo físico:
+1. **Identidad del Vector de Fallo:** La interrupción de la señal LZB en tierra afectó en el mismo instante temporal a ambas unidades ferroviarias.
+2. **Comportamiento Resiliente (Grupo de Control - AVE Renfe):** La arquitectura de control continuo ferroviario tradicional permitió gestionar la pérdida de portadora mediante una degradación controlada, restituyendo la soberanía operativa al operador humano.
+3. **Comportamiento Rígido (Unidad Analizada - ETR 1000):** La imposibilidad de reanudar la marcha sugiere una rigidez en la lógica de control embarcada. El hecho empírico de que el tren AVE pudiera desplazarse demuestra que la infraestructura física de Adif no imponía un bloqueo mecánico absoluto sobre la vía, acotando la investigación hacia una posible anomalía en el software de gestión de contingencias del ETR 1000.
+
+---
+
+### CAPÍTULO IV: ANTECEDENTES DOCUMENTADOS Y HECHOS PROBADOS DESDE LA PUESTA EN SERVICIO
+La plausibilidad técnica de esta hipótesis se ve reforzada por antecedentes documentados públicamente desde la introducción comercial de esta flota en la red española, los cuales acreditan la existencia de incidencias previas de naturaleza similar:
+1. **Registros Hemerográficos sobre Retardos de Reconexión:** Durante los primeros años de explotación comercial, diversas informaciones periodísticas basadas en partes de incidencia señalaron que los trenes de nueva generación sufrían pérdidas de señal de tierra y experimentaban tiempos de reconexión excesivos antes de poder reanudar la marcha (Diario de Sevilla, 2025).
+2. **Constancia en Sede Parlamentaria (Comparecencia en el Senado):** En la Comisión de Transportes y Movilidad Sostenible del Senado, el Consejero Delegado de la operadora (Fabrizio Favara) reconoció oficialmente en acta parlamentaria la existencia de tiempos de retardo prolongados en la recuperación lógica de los sistemas de a bordo tras incidencias en la señalización de la infraestructura (Senado de España, 2025). Estos antecedentes justifican la pertinencia de auditar si la evaluación de riesgos aplicada conforme al Reglamento de Ejecución (UE) 402/2013 sobre el Método Común de Seguridad (Comisión Europea, 2013) resultó suficiente para prevenir escenarios de obstrucción prolongada en vía general.
+
+---
+
+### CAPÍTULO V: ANÁLISIS FÍSICO E INGENIERÍA NEUMÁTICA DE LA ARQUITECTURA DE FRENADO (BCU)
+El sistema de frenado continuo automático ferroviario opera bajo el principio de presión negativa: el tren aplica el freno cuando las tuberías se vacían y libera las zapatas o discos cuando se inyectan y mantienen $5.0\text{ bares}$ de aire comprimido en la Tubería de Freno Automático (TFA) para vencer los muelles mecánicos.
+
+Al producirse la caída del sistema LZB, la lógica de seguridad de la Unidad de Control de Freno (*Brake Control Unit* - BCU) del ETR 1000 ordenó evacuar el aire de forma preventiva. La hipótesis técnica plantea que, al entrar el sistema de gestión embarcado en un estado de bloqueo lógico, las electroválvulas neumáticas quedaron retenidas en posición de escape abierta. Bajo este escenario, aunque los compresores inyectaran aire o la maquinista accionara los mandos auxiliares de cabina, el subsistema digital habría desestimado la orden humana, purgando la presión directamente a la atmósfera. La ausencia de un disyuntor mecánico puro o llaves de aislamiento neumático independientes de la lógica de la BCU habría impedido la recuperación manual del convoy.
+
+---
+
+### CAPÍTULO VI: ANÁLISIS DE CIBERSEGURIDAD INDUSTRIAL (MAPEO CWE), RTOS Y ARQUITECTURAS MILS
+El comportamiento observado en el bus de datos integrado (*Train Communication Network* - TCN) y en el protocolo de datos en tiempo real (*Train Real-Time Data Protocol* - TRDP), regulado por la norma IEC 61375-2-3:2015 (International Electrotechnical Commission [IEC], 2015), sugiere la posible concurrencia de tres debilidades de software específicas tipificadas por MITRE Corporation:
+1. **CWE-833 (*Deadlock* / Interbloqueo):** Los hilos de ejecución encargados de gestionar la comunicación externa con la infraestructura y la liberación neumática de los frenos habrían entrado en una dependencia circular mutua dentro del Sistema Operativo en Tiempo Real (*RTOS*), congelando el estado de las electroválvulas (MITRE Corporation, 2024c).
+2. **CWE-835 (*Loop with Unreachable Exit Condition - 'Infinite Loop'* / Bucle Infinito):** La rutina de reconexión automática ante la pérdida de señal habría entrado en un bucle sin condición de salida alcanzable, monopolizando los ciclos de cómputo de la CPU, eludiendo el reinicio por temporizadores de vigilancia (*watchdogs*) e induciendo inanición de comandos (*starvation*) respecto a las órdenes físicas de cabina (MITRE Corporation, 2024a).
+3. **CWE-617 (*Reachable Assertion* / Aserción Alcanzable):** La presencia de una condición algorítmica rígida que ejecuta una parada irrevocable vaciando la TFA al detectar portadora externa igual a cero, bloqueando cualquier mitigación posterior (MITRE Corporation, 2024b).
+
+Desde la perspectiva de la ingeniería de seguridad multinivel (**MILS** - *Multiple Independent Levels of Security*), un sistema embarcado crítico debe garantizar el aislamiento estricto entre particiones de distinta criticidad (Alves-Foss et al., 2006). La hipótesis plantea que la arquitectura lógica carecía de una separación temporal y espacial efectiva que impidiera que un fallo en la partición de comunicaciones externas bloqueara la partición crítica de control de frenado y tracción manual.
+
+---
+
+### CAPÍTULO VII: EL RIESGO DE RÉPLICA DEL FALLO EN OTRAS FLOTAS MODERNAS
+Este enfoque de diseño lógico, donde el hardware neumático queda supeditado sin aislamiento analógico a la CPU central ("cabina digital pura" o *Drive-by-Wire*), representa un riesgo potencial extensible a otras plataformas ferroviarias de última generación autorizadas bajo los procedimientos establecidos en el Reglamento de Ejecución (UE) 2018/545 (Comisión Europea, 2018) y supervisadas por la Agencia Estatal de Seguridad Ferroviaria (Agencia Estatal de Seguridad Ferroviaria [AESF], 2023):
+* **Serie 106 / AVRIL (Talgo):** Al integrar la gestión digital de tracción, cambio de ancho y frenado continuo, las desconexiones inalámbricas severas en entornos ERTMS Nivel 2 podrían inducir bloqueos de procesamiento similares (**CWE-835**) si no existe una vía de degradación independiente.
+* **Plataformas de última generación (CAF / Alstom):** La dependencia absoluta de buses de datos centralizados expone a los vehículos modernos al riesgo de inmovilización prolongada en vía general si el software actúa como censor absoluto de los mandos de socorro ante caídas de red de tierra.
+
+---
+
+### CAPÍTULO VIII: PROYECCIÓN DE RIESGO EN EL ERTMS NIVEL 2 Y LA RED FERROVIARIA EUROPEA
+Atribuir el incidente exclusivamente a la antigüedad del sistema LZB de tierra resulta técnicamente insuficiente; una vulnerabilidad lógica de esta naturaleza podría replicarse en líneas modernas equipadas con **ERTMS Nivel 2 / ETCS**, reguladas bajo las Especificaciones Técnicas de Interoperabilidad y el marco de seguridad de la Agencia Ferroviaria de la Unión Europea (European Union Agency for Railways [ERA], 2023a) y la Directiva (UE) 2016/797 (Parlamento Europeo y Consejo de la Unión Europea, 2016a):
+1. **El Vector de Caída Inalámbrico Comunitario:** El sistema ETCS/ERTMS Nivel 2 depende de una sesión de radio continua (GSM-R o FRMCS) con el *Radio Block Centre* (RBC) de tierra. Las comunicaciones inalámbricas están sujetas inherentemente a microcortes, interferencias electromagnéticas o saturación de celdas en cualquier corredor europeo.
+2. **Proyección en la Red Transeuropea:** Dado que la plataforma ETR 1000 opera de forma interoperable en España, Italia y Francia compartiendo una arquitectura base de gestión de frenado, una pérdida fortuita de la sesión de radio con el RBC podría desencadenar el mismo bloqueo lógico en corredores internacionales de alta densidad de tráfico.
+
+
+---
+
+### CAPÍTULO IX: EL PRINCIPIO INMUTABLE DE LA INGENIERÍA DE SEGURIDAD Y VERIFICACIÓN FORMAL (UPPAAL)
+La automatización avanzada en entornos críticos con nivel de integridad de seguridad **SIL 4**, regulados por las normas IEC 61508 (International Electrotechnical Commission [IEC], 2010) y EN 50716 —evolución normativa de la EN 50128 para el desarrollo de software ferroviario— (Comité Europeo de Normalización Electrotécnica [CENELEC], 2023), debe concebirse como una herramienta de optimización operativa. Sin embargo, debe cumplir la condición técnica innegociable de **no permitir jamás la pérdida de la comandancia por parte del operador humano habilitado desde la cabina**, en consonancia con el marco de seguridad sistemática de la Agencia Ferroviaria Europea (European Union Agency for Railways [ERA], 2023b).
+
+Para prevenir escenarios de bloqueo lógico como el planteado en esta hipótesis, la co-ingeniería *Safety-Security* exige someter los protocolos de comunicación y recuperación de frenado a técnicas formales de verificación de modelos (*model checking*) mediante autómatas temporizados en entornos como **UPPAAL** (Behrmann et al., 2004). El modelado formal permite demostrar matemáticamente la ausencia de estados de interbloqueo (*deadlocks*) y garantizar que, ante cualquier retardo o pérdida de señal externa, el sistema transita de forma determinista hacia un estado de degradación segura que preserva la soberanía de control del maquinista.
+
+---
+
+### CAPÍTULO X: CONCLUSIONES SOBRE LA RESPONSABILIDAD DIRECTA POR OMISIÓN CRÍTICA
+El nexo de causalidad jurídica en el siniestro de Urda no puede evaluarse bajo el prisma de la imprevisibilidad absoluta. En el derecho regulatorio del transporte ferroviario, los antecedentes documentados en sede parlamentaria (Senado de España, 2025) y en los registros hemerográficos previos (Diario de Sevilla, 2025) obligan a analizar una posible omisión en el control continuo del riesgo bajo los preceptos del Código Civil (BOE, 1889) y el Reglamento (UE) 2016/798 (Parlamento Europeo y Consejo de la Unión Europea, 2016b):
+1. **Deber de Mitigación ante Riesgos Conocidos:** Al existir constancia pública de que las unidades experimentaban retardos prolongados en la recuperación lógica tras pérdidas de señal de tierra, los operadores y fabricantes debían aplicar el Método Común de Seguridad para la evaluación y valoración del riesgo (Comisión Europea, 2013), adoptando restricciones operativas cautelares hasta garantizar la subsanación del código.
+2. **Concurrencia en la Cadena del Accidente:** Esta vulnerabilidad latente habría generado la obstrucción física prolongada en vía general, escenario que posteriormente se materializó en colisión tras la decisión humana del centro de control al autorizar el rebase del tren AVE trasero por el mismo cantón ocupado.
+
+---
+
+### CAPÍTULO XI: ANÁLISIS CINEMÁTICO FORENSE DE INEVITABILIDAD DE COLISIÓN A 40 KM/H
+El análisis cinemático de espacio-tiempo demuestra matemáticamente que la inmovilización forzosa atribuida al bloqueo lógico constituye un factor determinante en la cadena causal del alcance en Urda:
+1. **Ecuación de Movimiento en Conducción Visual:** Si la arquitectura embarcada hubiera preservado la soberanía humana y permitido a la maquinista emprender la marcha a la vista en modo degradado a la velocidad reglamentaria de $40\text{ km/h}$ ($11.11\text{ m/s}$) desde la notificación de las 08:41, la distancia recorrida ($s = v \cdot t$) durante los $780\text{ segundos}$ (13 minutos) de crisis habría alcanzado los **$8,665.8\text{ metros}$**.
+2. **Evacuación del Cantón de Vía:** Al desplazarse **$8.66\text{ kilómetros}$** en marcha visual degradada, el convoy delantero habría liberado por completo el cantón de vía ocupado (cuya longitud habitual en alta velocidad oscila entre 4 y 6 kilómetros).
+3. **Ruptura de la Geometría del Alcance:** Al despejar dicho tramo, los circuitos de vía habrían detectado la liberación del cantón y modificado el aspecto de las señales de protección posteriores. Bajo estas condiciones cinemáticas, el tren AVE trasero circulando a $200\text{ km/h}$ no habría coincidido espacialmente con el convoy delantero en ese punto, transformando el escenario de colisión en una detención controlada.
+
+---
+
+### CAPÍTULO XII: EL VECTOR DE RIESGO DE CIBERSEGURIDAD LÓGICA Y DIRECTIVA NIS 2
+Más allá del fallo funcional accidental, la rigidez algorítmica descrita abre una brecha crítica de ciberseguridad industrial (*Security*) evaluable bajo la **Directiva (UE) 2022/2555 (NIS 2)** (Parlamento Europeo y Consejo de la Unión Europea, 2022), la especificación técnica ferroviaria **CLC/TS 50701:2021** (CENELEC, 2021), la norma de seguridad de componentes **IEC 62443-4-2:2019** (IEC, 2019) y las directrices de protección de sistemas de control industrial **NIST SP 800-82** y **NIST CSF 2.0** (National Institute of Standards and Technology [NIST], 2023, 2024):
+1. **Vector de Ataque por Denegación de Servicio Físico (*Physical DoS*):** Como advierten los informes de ciberseguridad ferroviaria de la Agencia de la Unión Europea para la Ciberseguridad (European Union Agency for Cybersecurity [ENISA], 2023), la Estrategia de Ciberseguridad Ferroviaria de la ERA (ERA, 2022) y los entregables de investigación de *Shift2Rail* y *Europe's Rail Joint Undertaking* (Europe's Rail Joint Undertaking, 2023), la dependencia de enlaces inalámbricos expone al material rodante a interferencias intencionadas. Un actor hostil no requiere vulnerar el cifrado interno del bus del tren; le bastaría desplegar equipos de inhibición de radiofrecuencia (*jamming* o *spoofing*) sobre la señal GSM-R o FRMCS de la vía.
+2. **El Software como Ejecutor Involuntario del Sabotaje:** Ante la pérdida inducida de portadora externa, el propio algoritmo del convoy ejecutaría el interbloqueo (**CWE-833**), entraría en bucle infinito (**CWE-835**) y bloquearía los frenos neumáticos (**CWE-617**), inhabilitando la respuesta humana en cabina y fijando un obstáculo de alto tonelaje en corredores críticos.
+
+---
+
+### CAPÍTULO XIII: EL SOBREAGOTAMIENTO Y ESTRÉS DE LAS INFRAESTRUCTURAS FRENTE A LA RIGIDEZ DEL SOFTWARE
+Las líneas ferroviarias de alta velocidad soportan de manera inherente fatiga material, variaciones térmicas, desgaste de componentes y microcortes de tensión en la catenaria o portadoras de señal a lo largo de todo el año. Esta variabilidad física de la infraestructura constituye un parámetro previsible que los sistemas embarcados deben absorber sin colapsar.
+1. **La Falacia de la Conectividad Continua Perfecta:** La hipótesis plantea que el error de diseño reside en programar una lógica industrial bajo la premisa idealizada de que la señal externa de tierra mantendrá una disponibilidad ininterrumpida.
+2. **La Eliminación de la Redundancia Humana:** En lugar de gestionar las pérdidas de portadora mediante una degradación gradual controlada (*Graceful Degradation*), una arquitectura rígida que bloquea los frenos neumáticos cuando la infraestructura pierde comunicación impide al maquinista mitigar el incidente, transformando una incidencia ordinaria de señalización en una obstrucción crítica.
+
+---
+
+### CAPÍTULO XIV: ADIF COMO VÍCTIMA SISTÉMICA Y EL INCUMPLIMIENTO DEL REGLAMENTO DE CIRCULACIÓN
+El análisis del marco operativo ferroviario sugiere que el Administrador de Infraestructuras Ferroviarias (**Adif**) actúa como receptor pasivo de un riesgo trasladado cuando circula por su red un material rodante incapaz de cumplir los procedimientos degradados reglamentarios:
+1. **Quiebra Operativa del Reglamento de Circulación Ferroviaria (RCF):** El Real Decreto 664/2015 establece la obligación de continuar la marcha en modo degradado (Conducción Visual) a una velocidad máxima de $40\text{ km/h}$ tras la autorización correspondiente para evacuar cantones ocupados (BOE, 2015b). Si el software embarcado entra en interbloqueo (**CWE-833**) y mantiene purgados los frenos de forma irrevocable (**CWE-617**), impide materialmente al maquinista ejecutar la marcha a la vista exigida por la norma.
+2. **Saturación Operativa y Factor Humano:** Obligado por el marco europeo de interoperabilidad a permitir el acceso de flotas homologadas, el administrador de infraestructuras asume el impacto operativo de las inmovilizaciones prolongadas. Los 13 minutos de bloqueo inamovible atribuidos a la unidad delantera habrían sometido a los operadores del Centro de Regulación y Control (CRC) a una elevada carga cognitiva y saturación de alarmas, contribuyendo al escenario de confusión logística previo a la autorización de rebase del convoy trasero.
+3. **Equidad Regulatoria y Prevención:** La externalización de estos riesgos operativos y materiales hacia la infraestructura pública exige revisar los requisitos de homologación para garantizar que ningún material rodante utilice la red general sin disponer de mecanismos analógicos que aseguren su evacuación autónoma.
+
+---
+
+### CAPÍTULO XV: PROTOCOLO DE ACTUACIÓN Y PLAN DE MITIGACIÓN TECNOLÓGICA EN TRES FASES
+Para erradicar este riesgo sistémico y garantizar el cumplimiento estricto del Artículo 64 de la Ley 38/2015 del Sector Ferroviario (BOE, 2015a) y el Reglamento (UE) 2016/798 (Parlamento Europeo y Consejo de la Unión Europea, 2016b), se propone un plan de mitigación estructurado en tres niveles:
+
+1. **Parche de Código y Desacoplamiento Lógico (Fase de Software):** Revisión y actualización de la lógica del bus de datos *Train Communication Network* (TCN) y del protocolo TRDP. Ante una pérdida de señal externa o caída de sesión con el RBC de tierra, el sistema debe ejecutar un aislamiento asíncrono (*Graceful Degradation*) supervisado por temporizadores *watchdog*, pasando a un estado pasivo que evite el bucle infinito (**CWE-835**) y mantenga la tracción manual liberada para la conducción visual.
+2. **Bypass Mecánico-Neumático Puro (Fase de Hardware):** Implementación física en cabina de una llave analógica de aislamiento neumático directo independiente de la Unidad de Control de Freno (BCU). Este actuador mecánico puro permitiría interrumpir el control electrónico sobre las electroválvulas de purga, cerrando el escape y permitiendo presurizar los $5.0\text{ bares}$ en la Tubería de Freno Automático (TFA) para liberar el convoy en situaciones de emergencia.
+3. **Itinerario Procedimental de Notificación Ciudadana:** Tramitación escalonada de esta hipótesis técnica bajo el amparo del Artículo 259 de la Ley de Enjuiciamiento Criminal (BOE, 1882):
+    * **Fase 1 (INCIBE-CERT):** Comunicación técnica al CERT nacional mediante el canal de divulgación coordinada de vulnerabilidades para evaluar el riesgo como un posible *Zero-Day por Diseño* y analizar los vectores de Denegación de Servicio Físico (*Physical DoS*) bajo la Directiva NIS 2.
+    * **Fase 2 (AITAT):** Presentación formal de aportación ciudadana ante la Autoridad Administrativa Independiente para la Investigación Técnica de Accidentes e Incidentes de Transporte, solicitando la verificación en los registradores jurídicos (cajas negras) de la hipótesis de bloqueo lógico y del cálculo cinemático de los $8.66\text{ km}$.
+    * **Fase 3 (Tribunal de Instancia):** Remisión documental ante la Plaza N.º 2 de la Sección de Instrucción del Tribunal de Instancia de Orgaz para su valoración en el marco de las Diligencias Previas penales, a fin de que los peritos oficiales auditen el comportamiento del software embarcado y el control previo de riesgos documentado.
+
+---
+
+### REFERENCIAS BIBLIOGRÁFICAS, NORMATIVAS Y TÉCNICAS (ESTÁNDAR APA 7.ª EDICIÓN)
+
+#### Marco Normativo, Regulatorio y Agencias de Seguridad (Nacional y Europeo)
+* Agencia Estatal Boletín Oficial del Estado. (1882). *Real Decreto de 14 de septiembre de 1882 por el que se aprueba la Ley de Enjuiciamiento Criminal* (Art. 259). Boletín Oficial del Estado, núm. 260. https://boe.es
+* Agencia Estatal Boletín Oficial del Estado. (1889). *Real Decreto de 24 de julio de 1889 por el que se publica el Código Civil* (Art. 1902). Boletín Oficial del Estado, núm. 206. https://boe.es
+* Agencia Estatal Boletín Oficial del Estado. (2015a). *Ley 38/2015, de 29 de septiembre, del sector ferroviario* (Art. 64). Boletín Oficial del Estado, núm. 234. https://boe.es
+* Agencia Estatal Boletín Oficial del Estado. (2015b). *Real Decreto 664/2015, de 17 de julio, por el que se aprueba el Reglamento de Circulación Ferroviaria*. Boletín Oficial del Estado, núm. 171. https://boe.es
+* Agencia Estatal de Seguridad Ferroviaria. (2023). *Guía para la autorización de puesta en el mercado de vehículos ferroviarios y supervisión de sistemas embarcados*. Ministerio de Transportes y Movilidad Sostenible. https://seguridadferroviaria.es
+* Alves-Foss, J., Oman, P. W., Taylor, C., & Harrison, W. S. (2006). The MILS architecture for high-assurance embedded systems. *International Journal of Embedded Systems*, 2(3-4), 239–247. https://doi.org
+* Comisión Europea. (2013). *Reglamento de Ejecución (UE) n.º 402/2013 de la Comisión, de 30 de abril de 2013, relativo a la adopción de un método común de seguridad para la evaluación y valoración del riesgo*. Diario Oficial de la Unión Europea, L 121/8. https://europa.eu
+* Comisión Europea. (2018). *Reglamento de Ejecución (UE) 2018/545 de la Comisión, de 4 de abril de 2018, por el que se establecen las disposiciones prácticas relativas a la autorización de vehículos ferroviarios y al proceso de autorización de tipo de vehículos ferroviarios*. Diario Oficial de la Unión Europea, L 90/66. https://europa.eu
+* European Union Agency for Railways. (2022). *Railway cybersecurity strategy and cybersecurity guidance for the railway sector*. Publications Office of the European Union. https://europa.eu
+* European Union Agency for Railways. (2023a). *Technical Specifications for Interoperability (TSI) relating to the control-command and signalling subsystems (CCS TSI / ERTMS)*. Publications Office of the European Union. https://europa.eu
+* European Union Agency for Railways. (2023b). *ERA System Safety Framework: Guide for safety management and human factors integration*. Publications Office of the European Union. https://europa.eu
+* Parlamento Europeo y Consejo de la Unión Europea. (2016a). *Directiva (UE) 2016/797 del Parlamento Europeo y del Consejo, de 11 de mayo de 2016, sobre la interoperabilidad del sistema ferroviario dentro de la Unión Europea*. Diario Oficial de la Unión Europea, L 138/44. https://europa.eu
+* Parlamento Europeo y Consejo de la Unión Europea. (2016b). *Reglamento (UE) 2016/798 del Parlamento Europeo y del Consejo, de 11 de mayo de 2016, sobre la seguridad ferroviaria*. Diario Oficial de la Unión Europea, L 138/102. https://europa.eu
+* Parlamento Europeo y Consejo de la Unión Europea. (2022). *Directiva (UE) 2022/2555 del Parlamento Europeo y del Consejo, de 14 de diciembre de 2022, relativa a las medidas destinadas a garantizar un elevado nivel común de ciberseguridad en toda la Unión (Directiva NIS 2)*. Diario Oficial de la Unión Europea, L 333/80. https://europa.eu
+
+#### Estándares Técnicos, Ciberseguridad Industrial y Verificación Formal
+* Behrmann, G., David, A., & Larsen, K. G. (2004). A tutorial on UPPAAL. En M. Bernardo & F. Corradini (Eds.), *Formal methods for the design of real-time systems* (pp. 200–236). Springer. https://doi.org
+* Comité Europeo de Normalización Electrotécnica. (2021). *Aplicaciones ferroviarias. Ciberseguridad* (Especificación Técnica CLC/TS 50701:2021). AENOR.
+* Comité Europeo de Normalización Electrotécnica. (2023). *Aplicaciones ferroviarias. Requisitos para el desarrollo de software* (Norma EN 50716:2023). AENOR.
+* European Union Agency for Cybersecurity. (2023). *ENISA railway cybersecurity: Good practices in cyber risk management*. ENISA. https://europa.eu
+* Europe's Rail Joint Undertaking. (2023). *Cybersecurity deliverables and system architecture specifications for future rail systems (Shift2Rail / FP2-R2DATO)*. Unión Europea. https://europa.eu
+* International Electrotechnical Commission. (2010). *Functional safety of electrical/electronic/programmable electronic safety-related systems* (Norma IEC 61508). IEC.
+* International Electrotechnical Commission. (2015). *Electronic railway equipment – Train communication network (TCN) – Part 2-3: TCN communication profile (TRDP)* (Norma IEC 61375-2-3:2015). IEC.
+* International Electrotechnical Commission. (2019). *Security for industrial automation and control systems – Part 4-2: Technical security requirements for IACS components* (Norma IEC 62443-4-2:2019). IEC.
+* MITRE Corporation. (2024a). *CWE-835: Loop with Unreachable Exit Condition ('Infinite Loop')* [Estándar de debilidades de software]. Common Weakness Enumeration. https://mitre.org
+* MITRE Corporation. (2024b). *CWE-617: Reachable Assertion* [Estándar de debilidades de software]. Common Weakness Enumeration. https://mitre.org
+* MITRE Corporation. (2024c). *CWE-833: Deadlock* [Estándar de debilidades de software]. Common Weakness Enumeration. https://mitre.org
+* National Institute of Standards and Technology. (2023). *Guide to operational technology (OT) security* (NIST Special Publication 800-82 Rev. 3). U.S. Department of Commerce. https://doi.org
+* National Institute of Standards and Technology. (2024). *The NIST Cybersecurity Framework (CSF) 2.0* (NIST CSWP 29). U.S. Department of Commerce. https://doi.org
+
+#### Fuentes Parlamentarias, Hemerográficas y de Acreditación
+* Diario de Sevilla. (2025). *Incidencias de comunicación en la red de alta velocidad: Los trenes de nueva generación pierden la señal de tierra y tardan en reconectarse*. Grupo Joly.
+* García Manzano, J. A. (2026). *Ciberseguridad-ferroviaria-Urda: La pérdida de soberanía humana en sistemas SIL 4* [Repositorio de investigación y verificación]. GitHub. https://github.com
+* Google Career Certificates. (2025). *Certificado de Ciberseguridad de Google (Analista de nivel inicial)* [Programa de 8 cursos: fundamentos de ciberseguridad, gestión de riesgos, seguridad de redes, Linux y SQL, gestión de activos y amenazas, detección y respuesta a incidentes, automatización con Python y preparación profesional]. Coursera / Google.
+* Senado de España. (2025). *Diario de Sesiones de la Comisión de Transportes y Movilidad Sostenible: Comparecencia de los operadores ferroviarios sobre incidencias y tiempos de reconexión en la red de alta velocidad*. Cortes Generales.
+
+---
+
+### VALIDACIÓN DE AUTORÍA E INTEGRIDAD CRIPTOGRÁFICA
+La autoría intelectual, fecha de consolidación e inalterabilidad del presente documento quedan certificadas digitalmente mediante el historial de confirmaciones (*commits*) y su correspondiente firma criptográfica **hash SHA** registrada en el repositorio público de control de versiones:  
+`https://github.com/917543/Ciberseguridad-ferroviaria-Urda`
 
 **Autor:** Jose A. García Manzano  
-**Credenciales:** Google Cybersecurity Certified Professional  
-**Revisor / Asistente Técnico:** Claudio  
-**Fecha:** Noviembre 2026  
-**Proyecto:** Ciberseguridad Ferroviaria - Urda  
-**Clasificación de Seguridad:** SIL 4 (CENELEC EN 50126 / EN 50128 / EN 50129)  
-**Marco de Ciberseguridad:** CLC/TS 50701 / IEC 62443 (SL 3 - SL 4)  
-**Entorno de Aplicación:** Material Rodante Ferroviario (Alta Velocidad, Cercanías y Metropolitano)
-
----
-
-## Índice General
-
-1. [Resumen Ejecutivo (Abstract) y Palabras Clave](#resumen-ejecutivo-abstract-y-palabras-clave)
-2. [Capítulo 1: Introducción, Contexto y Motivación](#capítulo-1-introducción-contexto-y-motivación)
-3. [Capítulo 2: Marco Normativo y Co-ingeniería Safety-Security](#capítulo-2-marco-normativo-y-co-ingeniería-safety-security)
-4. [Capítulo 3: Arquitectura Funcional del Sistema de Freno Ferroviario y Dinámica Neumática Bipolar](#capítulo-3-arquitectura-funcional-del-sistema-de-freno-ferroviario-y-dinámica-neumática-bipolar)
-5. [Capítulo 4: Análisis Formal de Vulnerabilidades (CWE-833, CWE-400 y CWE-617)](#capítulo-4-análisis-formal-de-vulnerabilidades-cwe-833-cwe-400-y-cwe-617)
-6. [Capítulo 5: Modos de Fallo: Pérdida de Comandancia Neumática e Inmovilización Forzosa](#capítulo-5-modos-de-fallo-pérdida-de-comandancia-neumática-e-inmovilización-forzosa)
-7. [Capítulo 6: Propuesta de Arquitectura de Vía de Respaldo Bidireccional (*Safety Fallback Architecture*)](#capítulo-6-propuesta-de-arquitectura-de-vía-de-respaldo-bidireccional-safety-fallback-architecture)
-8. [Capítulo 7: Plan de Verificación, Validación Formal (V&V) y Ensayos HIL](#capítulo-7-plan-de-verificación-validación-formal-vv-y-ensayos-hil)
-9. [Capítulo 8: Evaluación Cuantitativa de Seguridad y RAMS (FTA y FMECA)](#capítulo-8-evaluación-cuantitativa-de-seguridad-y-rams-fta-y-fmeca)
-10. [Capítulo 9: Conclusiones Doctrinales y Recomendaciones Técnicas](#capítulo-9-conclusiones-doctrinales-y-recomendaciones-técnicas)
-11. [Capítulo 10: Glosario Técnico y Referencias Bibliográficas](#capítulo-10-glosario-técnico-y-referencias-bibliográficas)
-
----
-
-## Resumen Ejecutivo (Abstract) y Palabras Clave
-
-### Resumen
-La progresiva digitalización de las redes ferroviarias y la adopción de arquitecturas basadas en Ethernet embarcado (TRDP, IEC 61375) y comunicación inalámbrica tierra-tren (GSM-R, FRMCS, ETCS Nivel 2 y 3) han erosionado el tradicional aislamiento físico (*air-gap*) de los subsistemas embarcados. En este nuevo ecosistema, los subsistemas con el máximo nivel de integridad de seguridad funcional, **SIL 4** (*Safety Integrity Level 4*), como la **Unidad de Control de Freno** (BCU - *Brake Control Unit*), quedan expuestos a vectores de ataque cibernético y anomalías de concurrencia lógica que amenazan directamente la seguridad física de las operaciones ferroviarias.
-
-Esta tesis aborda el impacto de la tríada de debilidades de software críticas: **CWE-833 (Interbloqueo / Deadlock)**, **CWE-400 (Consumo No Controlado de Recursos / Resource Exhaustion)** y **CWE-617 (Aserción Alcanzable / Reachable Assertion)** en el plano de control embebido de la BCU. Se demuestra analítica y experimentalmente que estas anomalías no sólo provocan la inhibición del frenado a demanda o frenadas intempestivas, sino que inducen un tercer modo de fallo de severidad extrema: la **Inmovilización Forzosa por Secuestro de Purga Abierta (*Locked Exhaust State*)**. En este estado, cuando la pérdida transitoria de la portadora de vía activa una aserción no manejada (CWE-617), el software colapsa en bucle cerrado manteniendo excitadas o bloqueadas las electroválvulas en posición de escape continuo a la atmósfera. Esto impide de forma absoluta devolver la presión nominal de régimen ($5.0\text{ bar}$) a la Tubería de Freno Automático/General (TFA/TFG), bloqueando los cilindros de freno e incapacitando al maquinista para aflojar y reanudar la marcha. El tren queda convertido en un obstáculo ciego e inamovible en plena vía general de alta velocidad, expuesto a colisiones por alcance por tráfico convergente (como evidenció el Siniestro de Urda con el Frecciarossa ETR 1000).
-
-Como contribución central, se formula una **Arquitectura de Vía de Respaldo Bidireccional (*Safety Fallback Architecture*) en 4 niveles de defensa desacoplados**. A diferencia de los modelos tradicionales centrados exclusivamente en forzar la parada (*trip/fail-safe*), esta arquitectura garantiza de forma simétrica la **Soberanía Humana de Desbloqueo y Recuperación Neumática**: incorpora un disyuntor de aislamiento de purga de la BCU y un canal neumático de bypass directo a 5.0 bar que permite restituir la presión de régimen, vencer los muelles acumuladores y reanudar la marcha en modo degradado (ASFA) de manera inmediata. La solución se valida mediante modelado formal de estados en UPPAAL, inyección de fallos en banco HIL y análisis cuantitativo de fiabilidad (FTA/FMECA), demostrando una Tasa de Fallos Peligrosos ($THR \le 10^{-10}\text{ h}^{-1}$) plenamente conforme con la norma CENELEC EN 50129.
-
-### Palabras Clave
-`Ciberseguridad Ferroviaria`, `SIL 4`, `Seguridad Funcional`, `Unidad de Control de Freno (BCU)`, `Pérdida de Comandancia Neumática`, `Desbloqueo de Frenos`, `Recuperación de Presión a 5.0 bar`, `Inmovilización Forzosa`, `CWE-833 (Deadlock)`, `CWE-400 (Resource Exhaustion)`, `CWE-617 (Reachable Assertion)`, `Siniestro de Urda`, `ETR 1000`, `Safety Fallback Architecture`, `MILS`, `Fail-Safe Bidireccional`.
-
----
-
-## Capítulo 1: Introducción, Contexto y Motivación
-
-### 1.1. Contexto Tecnológico Ferroviario y la Ruptura del Modelo Air-Gap
-Históricamente, la seguridad ferroviaria se ha sustentado en el principio de *Fail-Safe* (seguridad intrínseca en caso de fallo), gobernado por normativas electrotécnicas y mecánicas donde cualquier avería conducía a un estado pasivo seguro: la despresurización de la tubería de freno y la parada por gravedad del convoy. Con la introducción de sistemas informáticos de control distribuido (TCMS - *Train Control & Management System*), señalización ERTMS/ETCS y mantenimiento predictivo en la nube mediante telemetría en tiempo real, la superficie de ataque del tren moderno se ha multiplicado exponencialmente.
-
-El supuesto tradicional de que las redes de control de tracción y freno operaban en un entorno aislado e inaccesible (*air-gapped*) ha dejado de ser válido. La interconexión mediante pasarelas de comunicación (*Gateways* TCN/Ethernet) entre redes no críticas de información al pasajero (PIS/PA, CCTV, Wi-Fi de a bordo) y redes críticas de tracción y freno abre conductos cibernéticos susceptibles de explotación maliciosa.
-
-### 1.2. El Desafío de la Integridad SIL 4 en la Era Digital
-La norma CENELEC EN 50128 estipula directrices rigurosas para el diseño de software SIL 4:
-- Exclusión del uso de memoria dinámica descontrolada en tiempo de ejecución.
-- Ausencia de punteros complejos no acotados.
-- Determinismo temporal estricto con ejecución cíclica periódica.
-- Cobertura de pruebas estructurales (MC/DC al 100%).
-
-Sin embargo, las normas de *Safety* fueron concebidas para mitigar fallos aleatorios de hardware y fallos sistemáticos de diseño de software debidos a errores humanos involuntarios. **No contemplaron adversarios inteligentes e interactivos** capaces de inducir estados límite de concurrencia mediante el envío de secuencias de paquetes especialmente crafteados a través del bus de tren, explotando sutiles ventanas temporales en el sistema operativo en tiempo real (RTOS).
-
-### 1.3. La Lección Forense del Siniestro de Urda: El Grupo de Control y la Inmovilización
-El 5 de noviembre de 2026, una avería por obsolescencia tecnológica en los equipos de tierra de la estación de Urda (Toledo) derribó la señal portadora LZB en plena línea de alta velocidad Madrid-Sevilla. Dos composiciones comerciales sufrieron el mismo evento físico en el mismo cantón:
-1. **Grupo de Control Resiliente (AVE S-100 / Renfe):** Tras la parada automática preventiva ordenada por la vía, el software de control reconoció la pérdida de señal y devolvió de inmediato la soberanía completa al maquinista. Este conmutó al sistema analógico secundario (ASFA), recuperó la presión neumática en la tubería general, aflojó los frenos y reanudó la marcha en modo degradado, despejando la vía.
-2. **Grupo con Bloqueo Sistémico (Frecciarossa ETR 1000 / Iryo - Hitachi):** Al perder la portadora, la BCU entró en un bucle cerrado de bloqueo mutuo. Las electroválvulas quedaron electrónicamente fijadas en purga abierta, expulsando a la atmósfera todo el aire comprimido inyectado por los compresores. Pese a los intentos de la maquinista habilitada, el software rechazó las órdenes de cabina, impidiendo devolver los 5 bares de presión para aflojar los frenos. La unidad permaneció paralizada durante 13 minutos en la vía general, convirtiéndose en un obstáculo fijo sobre el que fue expedido un tren posterior a 200 km/h.
-
-Este hecho empírico demuestra que el software puede convertirse en un **secuestrador de la comandancia física**, y que el concepto de seguridad funcional está gravemente incompleto si solo garantiza la detención y no provee una vía independiente para el **desbloqueo de frenos y la restitución de presión**.
-
-### 1.4. Hipótesis de Investigación
-> **Hipótesis Central:**  
-> *"La seguridad funcional ferroviaria SIL 4 es intrínsecamente bidireccional y simétrica: exige garantizar tanto la detención segura (despresurización) como la restitución de presión neumática de régimen (5.0 bar) para el desbloqueo de frenos y la reanudación de la marcha. Cuando una debilidad de software por concurrencia (CWE-833), agotamiento de recursos (CWE-400) o aserción alcanzable (CWE-617) colapsa la BCU en purga abierta, el maquinista queda privado de soberanía. Para neutralizar este riesgo manteniendo un $THR < 10^{-9}\text{ h}^{-1}$, es imprescindible una vía de respaldo heterogénea dotada de un canal de bypass neumático directo de alimentación a 5.0 bar y aislamiento de purga desacoplado del software."*
-
----
-
-## Capítulo 2: Marco Normativo y Co-ingeniería Safety-Security
-
-### 2.1. Normativa CENELEC Ferroviaria
-El ciclo de vida del material rodante está regido por la trilogía CENELEC:
-- **EN 50126 (RAMS):** Establece el proceso de gestión de la Fiabilidad, Disponibilidad, Mantenibilidad y Seguridad.
-- **EN 50128:** Regula los métodos de desarrollo, verificación y validación del software embebido de control y protección.
-- **EN 50129:** Define los requisitos de aceptación de seguridad para sistemas electrónicos programables de señalización y control vital.
-
-| Nivel de Integridad | Tasa de Fallos Peligrosos por Hora ($THR$) | Cobertura de Diagnóstico Requerida |
-| :---: | :---: | :---: |
-| **SIL 4** | $10^{-9} \le THR < 10^{-8}$ | $\ge 99\%$ (Excelente tolerancia a fallos) |
-| **SIL 3** | $10^{-8} \le THR < 10^{-7}$ | $\ge 90\%$ |
-| **SIL 2** | $10^{-7} \le THR < 10^{-6}$ | $\ge 60\%$ |
-| **SIL 1** | $10^{-6} \le THR < 10^{-5}$ | Requisitos básicos |
-
-### 2.2. La Normativa Específica de Ciberseguridad: CLC/TS 50701 e IEC 62443
-La especificación técnica europea **CLC/TS 50701** adapta el estándar industrial **IEC 62443** al dominio ferroviario, estableciendo:
-- **Zonificación y Conductos:** Segmentación física y lógica obligatoria de las zonas de control vital (Zona SIL 4), zonas de operación del tren (TCMS) y zonas abiertas (pasajeros/tierra).
-- **Niveles de Seguridad (SL-T 1 a 4):** Determinación del nivel de capacidad de ciberdefensa requerido frente a atacantes con distintas capacidades, recursos y motivación.
-
-```
-+--------------------------------------------------------------------------+
-|                  ZONA SIL 4 (Control Vital de Freno)                      |
-|                  SL-A 4 (Security Level Target 4)                        |
-|   +-----------------------+           +------------------------------+   |
-|   | BCU Canal Vital A     |<--------->| BCU Canal Vital B            |   |
-|   +-----------------------+           +------------------------------+   |
-+--------------------------------------------------------------------------+
-                                    ^ Conducto Seguro (Filtrado estricto)
-                                    |
-+--------------------------------------------------------------------------+
-|                  ZONA TCMS (Gestión y Monitorización del Tren)           |
-|                  SL-A 2 - SL-A 3                                         |
-|   +------------------------------------------------------------------+   |
-|   | Bus de Tren Ethernet TRDP / Multifunction Vehicle Bus (MVB)      |   |
-|   +------------------------------------------------------------------+   |
-+--------------------------------------------------------------------------+
-                                    ^ Pasarela de Frontera (Firewall / MILS)
-                                    |
-+--------------------------------------------------------------------------+
-|                  ZONA NO SEGURA (Pasajeros, Wi-Fi, PIS, Mantenimiento)   |
-|                  SL-A 1                                                  |
-+--------------------------------------------------------------------------+
-```
-
----
-
-## Capítulo 3: Arquitectura Funcional del Sistema de Freno Ferroviario y Dinámica Neumática Bipolar
-
-### 3.1. Topología de Red y Comunicaciones del Material Rodante
-El control del freno se distribuye a lo largo de la composición mediante el estándar **IEC 61375** (Train Communication Network - TCN) o su evolución basada en Ethernet (ETB - *Ethernet Train Backbone* y ECN - *Ethernet Consist Network* con protocolo TRDP). Las órdenes de tracción y freno circulan desde el manipulador de tracción/freno en cabina, pasando por los ordenadores centrales del tren (CCU - *Central Control Unit*), hasta las Unidades de Control de Freno (BCU) instaladas en cada bogie o coche.
-
-### 3.2. La Unidad de Control de Freno (BCU) y su Arquitectura Vital
-La BCU es el cerebro electroelectrónico responsable de:
-1. Recibir órdenes de deceleración de servicio, frenado de urgencia y frenado de emergencia.
-2. Calcular la fuerza de frenado conjugando freno eléctrico/regenerativo y freno neumático de fricción.
-3. Ejecutar el control antibloqueo y antideslizamiento (WSP - *Wheel Slide Protection*).
-4. Pilotar las electroválvulas neumáticas de aplicación y purga.
-
-Para cumplir con SIL 4, la BCU implementa internamente arquitecturas redundantes como **2oo2** (*2 out of 2*) o **2oo3** (*2 out of 3*), donde múltiples procesadores independientes ejecutan el mismo ciclo de control y comparan sus resultados mediante canales de comunicación interprocesador (ICC).
-
-### 3.3. Dinámica del Fluido y Circuito Neumático Bipolar: Ciclos de Frenada y Afloje
-El freno continuo automático por aire comprimido opera sobre una física bipolar gobernada por diferenciales de presión:
-
-```
-                            DINÁMICA DEL CIRCUITO NEUMÁTICO
-                                           |
-             +-----------------------------+-----------------------------+
-             |                                                           |
-     ESTADO DE FRENADO (Aplicación)                              ESTADO DE AFLOJE (Marcha)
-   - TFG despresurizada (5.0 bar -> 0 bar).                    - TFG presurizada a 5.0 bar nominales.
-   - Válvula distribuidora abre paso de aire                   - Válvula distribuidora purga cilindros
-     desde Depósitos Auxiliares a Cilindros (BC).                de freno (BC -> 0 bar) a atmósfera.
-   - Presión en BC comprime discos/zapatas.                    - Muelles mecánicos acumuladores vencidos.
-   - Muelles de freno de estacionamiento aplicados.            - Zapatas separadas: Tren apto para rodar.
-```
-
-1. **La Tubería de Freno Automático / General (TFA / TFG):**
-   - Presión de régimen normal de marcha: $P_{\text{TFG}} = 5.0\text{ bar} \pm 0.1\text{ bar}$.
-   - Una caída de presión comanda frenado; a $0\text{ bar}$ se obtiene el frenado de emergencia máximo.
-2. **El Mecanismo de Afloje y Desbloqueo (Restitución de Presión):**
-   - Para desbloquear los frenos tras cualquier detención, los compresores deben alimentar los Depósitos Principales (MR, $8.5 - 10\text{ bar}$) y reinyectar aire a través del manorreductor de cabina o de la BCU hacia la TFG hasta alcanzar de nuevo los **$5.0\text{ bar}$**.
-   - Al alcanzarse los $5.0\text{ bar}$ en la TFG, la válvula distribuidora bascula automáticamente su membrana, evacuando la presión de los Cilindros de Freno ($P_{\text{BC}} \to 0\text{ bar}$) a la atmósfera y venciendo los resortes mecánicos de freno de resorte (*spring-applied brake cylinders*).
-   - **Punto Crítico:** Si la TFG no logra subir a $5.0\text{ bar}$, los frenos continúan físicamente acuñados contra las ruedas, haciendo mecánicamente imposible que los motores de tracción muevan el tren sin provocar roturas o incendios en bogies.
-
-### 3.4. El Doble Juego de Electroválvulas: Aplicación frente a Purga
-En las unidades electroelectrónicas modernas, la BCU comanda dos actuadores vitales:
-- **Electroválvula de Carga/Alimentación (EV-Carga):** Permite el paso de aire desde los depósitos a la TFG.
-- **Electroválvula de Purga/Escape (EV-Purga o EVFE):** Conecta directamente la TFG a la atmósfera para provocar despresurizaciones rápidas de emergencia.
-- **Vulnerabilidad de Secuestro:** Si la EV-Purga queda electrónicamente excitada o atascada en posición abierta debido a un cuelgue del software, se forma una vía directa de escape a la atmósfera. Por más caudal que inyecten los compresores, el aire escapa libremente, haciendo físicamente imposible alcanzar los 5.0 bar y condenando al vehículo a un bloqueo permanente.
-
----
-
-## Capítulo 4: Análisis Formal de Vulnerabilidades (CWE-833, CWE-400 y CWE-617)
-
-### 4.1. CWE-833: Interbloqueo (*Deadlock*) en Sistemas SIL 4
-El fallo CWE-833 ocurre cuando dos o más hilos de ejecución concurrentes se bloquean mutuamente de manera indefinida, esperando por recursos asignados de forma exclusiva.
-
-#### Condiciones de Coffman en el Contexto Ferroviario:
-1. **Exclusión Mutua:** Acceso exclusivo a transductores de presión o búferes de comunicación.
-2. **Retención y Espera:** Una tarea retiene el cerrojo del lazo de control neumático mientras solicita el cerrojo de la pila de red.
-3. **No Apropiación:** Los recursos no pueden ser arrebatados forzosamente antes de su liberación voluntaria.
-4. **Espera Circular:** Existe un ciclo cerrado de dependencias entre hilos vitales e hilos de comunicación.
-
-$$\text{Tarea Vital (Freno)} \xrightarrow{\text{adquiere}} \text{Lock}_{\text{Presion}} \xrightarrow{\text{solicita}} \text{Lock}_{\text{TCN}}$$
-$$\text{Tarea Red (TCN/TRDP)} \xrightarrow{\text{adquiere}} \text{Lock}_{\text{TCN}} \xrightarrow{\text{solicita}} \text{Lock}_{\text{Presion}}$$
-
-#### El Peligro del Enmascaramiento de Watchdog y Congelamiento de Estado:
-Si el *Watchdog Timer* por software es refrescado por una tarea de monitorización periódica independiente de baja prioridad o por una interrupción del temporizador del sistema (SysTick) que continúa operando mientras los hilos vitales están en deadlock, el hardware no detecta la condición de congelamiento. **El sistema congela las salidas discretas en su último estado**: si la orden previa fue purga por caída de señal, la electroválvula de escape queda energizada indefinidamente en posición abierta.
-
----
-
-### 4.2. CWE-400: Consumo No Controlado de Recursos (*Resource Exhaustion*)
-En un sistema SIL 4, la memoria RAM suele estar preasignada estáticamente conforme a la EN 50128. Sin embargo, el recurso más vulnerable es el **tiempo de procesamiento (CPU budget)** y el **ancho de banda del bus de memoria interna (DMA/Bus Contention)**.
-
-#### Mecánica de la Tormenta de Interrupciones (*Interrupt Storm*):
-Un atacante que logra inyectar paquetes malformados masivos o tráfico UDP broadcast no autenticado en el bus Ethernet del tren (TRDP):
-1. Desencadena cientos de miles de interrupciones por segundo en la tarjeta de red (NIC) de la BCU.
-2. La rutina de servicio de interrupción (ISR) y el planificador del RTOS sufren saturación (*starvation*).
-3. La tarea vital de cálculo neumático, que debe ejecutarse religiosamente cada $\Delta t = 50\text{ ms}$, experimenta un desplazamiento temporal acumulativo (*jitter*).
-4. Se produce una violación sistemática del límite temporal (*Task Deadline Miss*), desestabilizando los algoritmos de control del bucle de freno y abortando las rutinas de realimentación y recarga de presión.
-
----
-
-### 4.3. CWE-617: Aserción Alcanzable (*Reachable Assertion*) y Secuestro Lógico por Rutina de Pánico
-La debilidad **CWE-617** se manifiesta cuando el código embebido contiene una macro de verificación o aserción lógica (`assert()`, invariant check) que, ante una condición imprevista pero físicamente alcanzable en operación, evalúa a falso y bifurca la ejecución hacia una rutina fatal de aborto, kernel panic o bucle cerrado de parada de emergencia (*fail-stop panic routine*).
-
-#### El Vector de Invocación en el Siniestro de Urda:
-En el firmware de la BCU y de la pasarela TCN/MVB, el diseño contemplaba erróneamente que la portadora de vía (LZB / baliza ERTMS) era ininterrumpible durante la marcha comercial, implementando comprobaciones del tipo:
-```c
-/* Invariante defectuoso en el plano de control vital */
-ASSERT(trackside_carrier_signal_quality > 0, "Carrier drop detected: Fail-Safe trip");
-```
-1. **Disparo Inflexible de la Aserción:** Al producirse el corte tecnológico en la estación de Urda, la variable de conectividad cayó instantáneamente a cero, alcanzando la aserción (CWE-617).
-2. **Aborto y Parada Irrevocable:** En lugar de ejecutar una conmutación suave y determinista a modo degradado (Graceful Degradation cediendo la tracción al maquinista bajo supervisión ASFA), el manejador de la aserción ejecutó una rutina de pánico que **abrió y enclavó permanentemente las electroválvulas de purga (EVFE)** a atmósfera.
-3. **Censura de Mandos de Cabina:** La aserción desactivó la atención a las interrupciones del manipulador de freno y de los compresores auxiliares, creando un estado zombi irrevocable que convirtió una pérdida de señal externa transitoria en un secuestro físico insalvable de la presión neumática.
-
----
-
-## Capítulo 5: Modos de Fallo: Pérdida de Comandancia Neumática e Inmovilización Forzosa
-
-La pérdida de comandancia neumática no es un fenómeno unidireccional. La investigación identifica **tres modos de fallo fundamentales**:
-
-```
-                              PÉRDIDA DE COMANDANCIA NEUMÁTICA
-                                              |
-     +----------------------------------------+----------------------------------------+
-     |                                        |                                        |
-[MODO 1: INHIBITORIO]                [MODO 2: INTEMPESTIVO]              [MODO 3: INMOVILIZACIÓN FORZOSA]
-(Incapacidad de Frenar)              (Frenado Espurio Asimétrico)        (Incapacidad de Desbloquear)
-- Tren en movimiento no desacelera.   - Frenado violento en bogie único.  - CPU bloqueada en purga abierta.
-- TFG atascada en 5.0 bar.           - Daño térmico en llantas y discos. - TFG no puede subir a 5.0 bar.
-- Rebase de señal en peligro (SPAD). - Fuerzas de lazo inadmisibles.     - Tren inmóvil en vía general.
-- Riesgo: Colisión frontal/alcance.  - Riesgo: Descarrilamiento.         - Riesgo: Alcance por tren trasero.
-```
-
-### 5.1. Modo 1: Modo Inhibitorio (Incapacidad de Frenar a Demanda)
-- **Definición:** El tren se encuentra en marcha; el maquinista o el sistema ETCS ordena frenado de servicio o urgencia, pero la BCU afectada no pilota las electroválvulas de vaciado ni despresuriza la TFG.
-- **Consecuencia Catastrófica:** Rebase de señal de parada (*Signal Passed at Danger* - SPAD), colisión frontal con otro convoy o descarrilamiento por exceso de velocidad en curvas.
-
-### 5.2. Modo 2: Modo Intempestivo (Frenado Espurio y Asimétrico)
-- **Definición:** La BCU colapsa y entra en un estado oscilante o aplica el freno de emergencia de forma no coordinada en un único bogie mientras el resto de la composición continúa traccionando.
-- **Consecuencia Catastrófica:** Deformación térmica de discos, plano en ruedas (*flat spots*) y riesgo de encabalgamiento de pestaña de rueda sobre el carril por descompensación dinámica.
-
-### 5.3. Modo 3: Modo de Inmovilización Forzosa / Bloqueo en Purga Abierta (*Locked Exhaust State*)
-- **Definición:** Tras una frenada de servicio o una caída transitoria de la portadora de vía (LZB / ERTMS Nivel 2), el tren se detiene por completo. Al intentar reanudar la marcha, **la BCU colapsa por una aserción alcanzable (CWE-617) o interbloqueo de recursos (CWE-833 / CWE-400), manteniendo energizadas las electroválvulas de purga en posición abierta**.
-- **Consecuencia Física:** La TFG permanece comunicada a la atmósfera ($P_{\text{TFG}} = 0\text{ bar}$). El sistema informático rechaza las consignas del maquinista y el caudal de los compresores principales es evacuado continuamente. Los cilindros de freno (BC) continúan presurizados al máximo y los muelles mecánicos de estacionamiento permanecen aplicados.
-- **Gravedad Operativa y Catastrófica en Vía General:**
-  1. **El tren queda transformado en un obstáculo fijo y ciego** en el cantón de alta velocidad.
-  2. En líneas de tráfico denso, los sistemas de señalización pueden experimentar perturbaciones asociadas a la misma avería de infraestructura, induciendo a los operadores de control de tráfico a autorizar la marcha a la vista o rebasar señales a convoyes posteriores que circulan a más de 200 km/h.
-  3. **El tiempo de inmovilización no controlado (13 minutos en Urda)** excede con creces los márgenes de seguridad operativa. La privación de soberanía a la tripulación impide apartar el tren a un escape, vía secundaria o andén, configurando un escenario de colisión por alcance inminente.
-  4. **Inevitabilidad Cinemática de Ruptura de la Cadena de Alcance:** Conforme al análisis cinemático de movimiento rectilíneo uniforme ($s = v \cdot t$), si la arquitectura de software hubiera garantizado la soberanía de afloje y permitido a la maquinista iniciar la marcha en modo degradado / marcha a la vista ($v = 40\text{ km/h} \approx 11.11\text{ m/s}$) durante los $780\text{ s}$ (13 minutos) de crisis, la distancia recorrida habría alcanzado:
-     $$s = 11.11\text{ m/s} \cdot 780\text{ s} = 8,665.8\text{ metros}$$
-     Al avanzar más de $8.66\text{ km}$, el tren habría liberado íntegramente el cantón de bloqueo (cuya longitud oscila habitualmente entre 4 y 6 km), conmutando los circuitos de vía mecánicos y anulando la geometría física del alcance por el tren posterior.
-
----
-
-## Capítulo 6: Propuesta de Arquitectura de Vía de Respaldo Bidireccional (*Safety Fallback Architecture*)
-
-Para garantizar la inmunidad ante CWE-833, CWE-400 y CWE-617, la arquitectura de vía de respaldo no puede limitarse a provocar la detención: **debe ser simétrica y bidireccional, garantizando tanto el frenado de emergencia como la restitución de presión a 5.0 bar para el desbloqueo y reanudación de la marcha**.
-
-```
-===================================================================================
-NIVEL 4: MANDO MECÁNICO DIRECTO (CABINA Y BOGIES)
-- Frenado: Válvula de freno de emergencia directa conectada a la TFG.
-- Afloje: BY-PASS NEUMÁTICO MANUAL directo desde Depósitos Principales a TFG (5.0 bar).
-- Tiradores mecánicos de purga directa de cilindros de freno (BC release) por bogie.
-===================================================================================
-                                      ^ |
-===================================================================================
-NIVEL 3: LAZO DE SEGURIDAD Y DISYUNTOR DE AISLAMIENTO DE PURGA (110 Vcc)
-- Frenado: Safety Loop desenergizable ("de-energize to apply").
-- Afloje: DISYUNTOR ELÉCTRICO DE AISLAMIENTO DE PURGA (Brake Release Override Switch).
-  Corta la polarización a las electroválvulas de purga de la BCU congelada,
-  forzando su cierre inmediato por resorte mecánico para detener el escape de aire.
-===================================================================================
-                                      ^ |
-===================================================================================
-NIVEL 2: WINDOWED WATCHDOG TIMER (WWDT) ANALÓGICO DIVERSIFICADO
-- Monitorización de ventana temporal estricta: 40 ms < t_pulso < 60 ms.
-- Detección de Deadlock (CWE-833) y saturación (CWE-400).
-- Conmuta automáticamente el control de electroválvulas a la línea de respaldo analógica.
-===================================================================================
-                                      ^ |
-===================================================================================
-NIVEL 1: PARTICIONAMIENTO MILS Y MICROKERNEL DE SEPARACIÓN
-- Partición SIL 4 vital de freno con ranura temporal blindada (70% CPU).
-- Partición de red/diagnóstico aislada espacial y temporalmente.
-- Inmunidad de la lógica de afloje frente a tormentas de paquetes en el bus TRDP.
-===================================================================================
-```
-
-### 6.1. Detalle del Nivel 1: Aislamiento MILS (*Multiple Independent Levels of Security*)
-- Microkernel certificado EN 50128 SIL 4 (PikeOS / VxWorks 653).
-- **Invariante Espacial y Temporal:** La partición de control neumático dispone de cuotas estrictas de cómputo ininterrumpibles. Si el bus TRDP sufre una inundación de paquetes malformados (CWE-400), la partición de diagnóstico puede colapsar, pero la rutina periódica de gestión de presión ($\Delta t = 50\text{ ms}$) ejecuta su ciclo sin perturbación.
-
-### 6.2. Detalle del Nivel 2: Windowed Watchdog Timer (WWDT) Analógico Diversificado
-- Vigilancia estricta por ventana temporal ($t_{\min} = 40\text{ ms} < t_{\text{refresco}} < t_{\max} = 60\text{ ms}$).
-- Si la BCU entra en interbloqueo circular (CWE-833), el WWDT detecta la ausencia del pulso vital de fin de ciclo en menos de $100\text{ ms}$ y conmuta la etapa de potencia de las electroválvulas al **modo de custodia de respaldo**.
-
-### 6.3. Detalle del Nivel 3: Disyuntor de Aislamiento de Purga y Lazo Cableado (*Brake Release Override*)
-Este nivel introduce el mecanismo específico de corrección frente al modo de fallo observado en la tesis:
-1. **Disyuntor de Corte de Purga (*Exhaust Valve Cut-Off*):**
-   - Conmutador biestable electromecánico en pupitre de conducción.
-   - Al ser accionado por el maquinista ante una inmovilización no justificada, **interrumpe físicamente el suministro eléctrico a todas las electroválvulas de purga (EV-Purga) comandadas por la BCU**.
-   - Al desenergizarse las electroválvulas de purga, sus muelles mecánicos internos fuerzan el cierre hermético instantáneo de la tobera de escape, anulando la fuga continua a la atmósfera provocada por el cuelgue informático.
-2. **Lazo de Seguridad Cableado Fail-Safe:**
-   - Línea de 110 Vcc en bucle cerrado. Permite la desexcitación vital para parada de emergencia sin intervención de buses digitales.
-
-### 6.4. Detalle del Nivel 4: Canal Neumático Autónomo de Desbloqueo y Represurización a 5.0 bar
-El Nivel 4 constituye el seguro de vida mecánico e inmutable de la composición:
-1. **Válvula Bypass Neumática de Represurización Directa:**
-   - Una conducción neumática de alta capacidad conecta directamente los Depósitos Principales (MR, $8.5 - 10\text{ bar}$) con la TFG, puenteando íntegramente la electrónica de la BCU.
-   - Incorpora una **válvula reductora de presión mecánica autoaccionada calibrada a $5.0\text{ bar}$** gobernada por una palanca manual protegida en cabina.
-   - Al abrir la palanca, el aire de los depósitos principales inunda la TFG, alcanzando la presión nominal de régimen ($5.0\text{ bar}$) en un tiempo $T_{\text{carga}} \le 12\text{ segundos}$ a lo largo de toda la composición.
-   - La presurización de la TFG actúa directamente sobre las válvulas distribuidoras mecánicas de cada coche, vaciando los cilindros de freno (BC $\to 0\text{ bar}$) y comprimiendo los muelles mecánicos acumuladores.
-2. **Tiradores Manuales de Desbloqueo por Bogie (*BC Release Rings*):**
-   - Tiradores de cable independientes en cada bogie que permiten purgar mecánicamente la cámara del cilindro de freno ante una avería neumática extrema localizada, garantizando el rodaje libre de cada eje.
-3. **Reanudación de Marcha en Modo Degradado (Protocolo Resiliente):**
-   - Una vez restablecidos los $5.0\text{ bar}$ y desbloqueados los frenos mediante este canal físico, el maquinista activa el sistema secundario analógico (ASFA / Marcha a la vista) y tracciona el vehículo de forma inmediata, desalojando el cantón hacia una estación o vía de apartado, replicando el comportamiento del grupo de control (AVE Renfe) en Urda.
-
----
-
-## Capítulo 7: Plan de Verificación, Validación Formal (V&V) y Ensayos HIL
-
-### 7.1. Verificación Formal de Modelos de Concurrencia
-Para erradicar CWE-833 durante el diseño del RTOS:
-- Modelado de las máquinas de estados de la BCU mediante **Redes de Petri Temporizadas** y herramientas de model checking (**UPPAAL / Scade**).
-- Verificación exhaustiva de la propiedad de ausencia de interbloqueo y garantía de afloje en lógica temporal CTL:
-$$A \square \neg \text{Deadlock} \quad \wedge \quad A \lozenge (P_{\text{TFG}} = 5.0\text{ bar})$$
-*(En todo camino computacional el sistema está libre de deadlock y siempre es posible alcanzar el estado de afloje pleno a 5.0 bar).*
-
-### 7.2. Banco de Ensayos HIL (*Hardware-in-the-Loop*)
-El banco de validación física integra:
-1. **Rack Real de la BCU:** Tarjetas de procesamiento 2oo2, módulos de I/O y transductores de presión.
-2. **Simulador Neumático Dinámico:** Tubería de freno real de longitud equivalente a 200 metros, cilindros de freno reales y compresores industriales.
-3. **Protocolo de Inyección de Fallos:**
-   - **Ensayo F-01 (Inyección CWE-833 en Purga Abierta):** Se fuerza la contención circular de mutex en la BCU tras una orden de parada. Se verifica que el accionamiento del disyuntor de aislamiento de purga y la apertura del bypass neumático del Nivel 4 restituyen la presión en la TFG a $5.0\text{ bar}$ en $T_{\text{recharge}} \le 12\text{ s}$ y vacían los cilindros de freno en $T_{\text{release}} \le 4\text{ s}$.
-   - **Ensayo F-02 (Tormenta TRDP / CWE-400):** Inyección de tráfico UDP malformado masivo a $1\text{ Gbps}$. Se constata que la ranura temporal MILS protege el bucle neumático vital sin perturbación temporal de ciclo.
-   - **Ensayo F-03 (Disparo de Aserción CWE-617):** Inyección de corte repentino de portadora LZB/ERTMS a nivel de capa física. Se verifica que la desconexión del enlace no provoca el aborto del RTOS en pánico permanente, y que ante el bloqueo de purga, el bypass del Nivel 4 permite al maquinista la recarga y liberación inmediata de los frenos.
-
----
-
-## Capítulo 8: Evaluación Cuantitativa de Seguridad y RAMS (FTA y FMECA)
-
-### 8.1. Análisis por Árbol de Fallos (*Fault Tree Analysis* - FTA)
-Se define como Evento Top Catastrófico:  
-**$E_{\text{TOP}}$: Catástrofe por pérdida de comandancia (Colisión por rebase o alcance tras inmovilización en vía general).**
-
-```
-                                  [E_TOP: Accidente Catastrófico]
-                                                 |
-                                            (PUERTA AND)
-                                                 |
-                +--------------------------------+-------------------------------+
-                |                                                                |
-    [Fallo Primario de Software BCU]                                [Fallo de la Vía de Respaldo]
-    (CWE-833 Deadlock, CWE-400 o CWE-617)                           (Disyuntor + Bypass Mecánico 5 bar)
-    Tasa: lambda_BCU = 10^-4 /h                                     Tasa: lambda_Respaldo = 10^-6 /h
-```
-
-Cálculo cuantitativo de la Tasa de Peligro Tolerable ($THR$):
-$$THR_{\text{sistema}} = \lambda_{\text{BCU}} \times \lambda_{\text{Respaldo}} = 10^{-4} \times 10^{-6} = 10^{-10}\text{ fallos peligrosos/hora}$$
-
-Dado que $10^{-10} < 10^{-9}$, **la arquitectura satisface holgadamente el criterio SIL 4 exigido por la norma CENELEC EN 50129 tanto para la detención como para la recuperación de marcha**.
-
-### 8.2. FMECA Resumido de Modos de Fallo y Afloje
-
-| Componente | Modo de Fallo | Causa Raíz (CWE) | Efecto Crítico | Mecanismo de Respaldo y Desbloqueo | SIL |
-| :--- | :--- | :--- | :--- | :--- | :---: |
-| **Pila TRDP / RTOS** | Jitter / Starvation | CWE-400 (Tormenta de red) | Violación de deadline de ciclo | Aislamiento MILS de cuotas de CPU | SIL 4 |
-| **Controlador Neumático** | Congelamiento de salida | CWE-833 (Deadlock de mutex) | Purga abierta continua (0 bar en TFG) | Disyuntor eléctrico corta purga; muelle cierra válvula | SIL 4 |
-| **Núcleo Lógico BCU** | Aborto / Kernel Panic | CWE-617 (Aserción alcanzable) | Parada no recuperable y veto a cabina | Conmutación analógica ASFA + Bypass 5.0 bar | SIL 4 |
-| **TFG (Circuito)** | Incapacidad de carga | Purga electrónica atascada | Tren inmovilizado en vía general | Bypass mecánico directo a 5.0 bar desde Depósitos Principales | SIL 4 |
-| **Cilindros de Freno (BC)** | Presurización residual | Fallo de válvula relé | Zapatas trabadas contra rueda | Tiradores de purga manual por bogie | SIL 4 |
-
----
-
-## Capítulo 9: Conclusiones Doctrinales y Recomendaciones Técnicas
-
-### 9.1. Conclusiones Principales
-1. **La Simetría de la Soberanía Humana en Sistemas SIL 4:** La seguridad ferroviaria no se agota en la capacidad de detener el tren. Dejar a un maquinista atrapado en una máquina con los frenos bloqueados en plena vía general por un error lógico de software es una vulneración inadmisible de la *Lex Artis* y del deber de diligencia exigible por la Ley del Sector Ferroviario.
-2. **Superación del Paradigma de Purga Exclusiva:** Los sistemas de control modernos deben integrar salvaguardas mecánicas independientes para la **restitución de presión de régimen ($5.0\text{ bar}$) y el desbloqueo forzoso**, permitiendo la evacuación de cantones críticos hacia vías seguras en modo degradado.
-3. **Validación del Enfoque Técnico-Doctrinal:** La vía de respaldo en 4 niveles propuesta resuelve la asimetría observada en el Siniestro de Urda, demostrando matemáticamente que es viable compatibilizar la máxima sofisticación digital con la infalibilidad neumática tradicional bajo estándar SIL 4 ($THR \le 10^{-10}\text{ h}^{-1}$).
-
-### 9.2. Recomendaciones para la AESF y la ERA
-- Exigir en los dossiers de homologación única de vehículos (Reglamento de Ejecución (UE) 2018/545) la acreditación de ensayos físicos de **desbloqueo de frenos y reanudación de marcha con la BCU apagada o en fallo catastrófico**.
-- Prohibir la circulación comercial de flotas de alta velocidad que carezcan de canal de bypass neumático directo para alimentar la TFG a 5.0 bar con independencia de los procesadores de abordo.
-
----
-
-## Capítulo 10: Glosario Técnico y Referencias Bibliográficas
-
-### Glosario Técnico
-- **BC (*Brake Cylinder*):** Cilindro de freno neumático.
-- **BCU (*Brake Control Unit*):** Unidad de Control de Freno.
-- **Bypass Neumático de Carga:** Canalización independiente que suministra 5.0 bar directos desde los depósitos principales a la TFG sin mediación digital.
-- **CWE (*Common Weakness Enumeration*):** Catálogo formal de debilidades de software (CWE-833: Deadlock; CWE-400: Resource Exhaustion; CWE-617: Reachable Assertion).
-- **Disyuntor de Aislamiento de Purga:** Conmutador electromecánico que desenergiza las electroválvulas de escape forzando su cierre hermético.
-- **MR (*Main Reservoir*):** Depósitos principales de aire comprimido (8.5 a 10 bar).
-- **RAMS:** Fiabilidad, Disponibilidad, Mantenibilidad y Seguridad (*Reliability, Availability, Maintainability, Safety*).
-- **SIL 4 (*Safety Integrity Level 4*):** Máximo nivel de integridad de seguridad funcional según EN 50126/128/129 ($THR < 10^{-9}\text{ h}^{-1}$).
-- **TFA / TFG (*Brake Pipe*):** Tubería de Freno Automático / General (presión normal de afloje: 5.0 bar; presión de emergencia: 0 bar).
-- **TRDP (*Train Real-Time Data Protocol*):** Protocolo de comunicación en tiempo real sobre Ethernet embarcado.
-- **WWDT (*Windowed Watchdog Timer*):** Temporizador de vigilancia por ventana temporal estricta ($t_{\min} < t < t_{\max}$).
-
-### Referencias Bibliográficas
-1. **CENELEC EN 50126-1:2017:** *Aplicaciones ferroviarias. Especificación y demostración de RAMS.*
-2. **CENELEC EN 50128:2011/A2:2020:** *Aplicaciones ferroviarias. Software para sistemas de control y protección del ferrocarril.*
-3. **CENELEC EN 50129:2018:** *Aplicaciones ferroviarias. Sistemas electrónicos relacionados con la seguridad para la señalización.*
-4. **CENELEC CLC/TS 50701:2021:** *Railway applications - Cybersecurity.*
-5. **IEC 62443-4-2:2019:** *Security for industrial automation and control systems.*
-6. **IEC 61375-2-3:2015:** *Train communication network (TCN) - TRDP.*
-7. **MITRE Corporation (2026):** *CWE-833: Symbol Collision & Deadlock; CWE-400: Uncontrolled Resource Consumption; CWE-617: Reachable Assertion.*
-8. **Ley 38/2015, de 29 de septiembre, del Sector Ferroviario (BOE de 30 de septiembre de 2015).**
-9. **García Manzano, J. A. (2026):** *Tesis Doctrinal de Ciberseguridad Industrial y Derecho Regulatorio Ferroviario: La Pérdida de Soberanía Humana en Sistemas SIL 4.*
+**Perfil:** Ciudadano Colaborador (Art. 259 LECrim) | Analista de Ciberseguridad (Nivel inicial) — Certificado por Google 
