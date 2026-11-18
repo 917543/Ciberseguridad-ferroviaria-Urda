@@ -1,29 +1,39 @@
-# ANNEX I: EXECUTIVE SUMMARY REPORT ON INDUSTRIAL CYBERSECURITY
 
-**DOCUMENT:** Identification of Software Weaknesses Applied to the Loss of Command and Pneumatic Pressure (Official CWE Mapping)  
+Jose Antonio Garcia Manzano <josea.garciamanzano@gmail.com>
+23:31 (hace 0 minutos)
+para mí
+
+# ANNEX I: EXECUTIVE SUMMARY OF INDUSTRIAL CYBERSECURITY AND MITRE CWE MAPPING
+
+**PROJECT:** Ciberseguridad-ferroviaria-Urda — Analysis of the Alleged Loss of Human Sovereignty in SIL 4 Systems.  
 **AUTHOR:** Jose A. García Manzano  
-**TECHNICAL REVIEWER:** Claudio  
-**LICENCE:** Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)  
+**PROFILE:** Citizen Collaborator with Justice (Art. 259 Spanish Criminal Procedure Act) | Entry-level Cybersecurity Analyst (Google Certified - 8-course program).  
+**NATURE:** Executive technical summary and logical hypothesis subject to official forensic verification (railway black boxes).  
+**UPDATED ON:** November 18, 2026  
 
 ---
 
-### I. OBJECT OF THE SUMMARY REPORT
-This report condenses the technical argumentation of the thesis, translating the physical and pneumatic behavior of the Frecciarossa ETR 1000 train into the international taxonomy of industrial cybersecurity vulnerabilities (Common Weakness Enumeration - CWE) by MITRE. It demonstrates that the immobilization of the convoy was not a fortuitous mechanical breakdown, but the direct consequence of a logical design failure that entirely suppressed the human operator's control capacity over the brake pressure bus.
+### I. SYNTHESIS OF THE LOGICAL AND PNEUMATIC FAILURE HYPOTHESIS
+This summary outlines the technical-functional hypothesis regarding the prolonged immobilization of the ETR 1000 rolling stock for 13 critical minutes in Urda (Toledo, Spain). It proposes verifying through official event recorders whether a rigidity in the onboard software architecture (*Train Communication Network* - TCN / TRDP protocol) prevented a safe graceful degradation transition following the drop of the trackside LZB carrier signal.
 
-### II. VULNERABILITY MAPPING OF THE PRESSURE BUS AND CAB COMMANDS
-The forensic analysis of the data bus freeze (TCN/MVB) and the physical bleeding of the Automatic Brake Pipe (TFA/TFG) following the loss of trackside carrier signals reveals the presence of three critical software weaknesses with direct physical impact:
+Under this hypothesis, the logical lockup of the Brake Control Unit (BCU) kept the pneumatic solenoid valves held in an open exhaust position, venting the Brake Pipe (TFA) and preventing the buildup of the $5.0\text{ bar}$ pressure required to release the brakes and proceed under regulatory visual driving rules at $40\text{ km/h}$ (which would have cleared $8.66\text{ km}$ out of the occupied track block).
 
-* **CWE-833 (Deadlock / Interbloqueo):** When the trackside LZB system collapsed, the software execution thread managing external communications with Adif and the thread managing pneumatic brake release entered a circular deadlock condition (*Coffman lockup*). As the electronic "brain" became cyclically trapped waiting for non-existent network packets, it froze bus instructions and locked the pneumatic electrovalves in an open exhaust/purge position.
-* **CWE-400 (Uncontrolled Resource Consumption / Consumo no Controlado de Recursos):** As a direct consequence of the infinite reconnection loop, the train's CPU experienced computation resource exhaustion (*starvation*). This triggered command starvation in the cab: physical air injection commands sent by the driver via the auxiliary levers were completely rejected and unattended by the logical system, as processing capacity was monopolized by the locked software.
-* **CWE-617 (Reachable Assertion / Aserción Alcanzable):** The software contains an unhandled extreme shutdown condition: upon encountering an external connectivity value equal to zero, it executes an irrevocable panic/stop routine that purges the 5 bars from the brake pipe. When this logical assertion was automatically triggered by Adif's trackside network cut, the software physically locked the pneumatic electrovalves open, preventing any subsequent instruction or crew action from halting the exhaust of air, thereby consolidating an immovable obstacle on the main track.
+---
 
-### III. PROVEN FACTS AND DYNAMIC ASYMMETRY (THE CONTROL GROUP)
-The operational behavior of the AVE train (Renfe) acts as the expert control group. The AVE's software lacked these deadlock, resource exhaustion, and reachable assertion flaws: it isolated the lost trackside signal, performed graceful degradation, and restored 100% of physical command to the driver. Conversely, the new operator's train (Iryo / ETR 1000), afflicted by the described flaws (CWE-833, CWE-400, and CWE-617), collapsed cab operability to 0%, materially preventing the re-injection of the 5 bars of nominal pressure required to release the wheels.
+### II. TECHNICAL MAPPING OF SOFTWARE WEAKNESSES (MITRE CWE)
+The behavior observed on the integrated data bus suggests the potential concurrence of three specific *Base*-level software weaknesses classified by MITRE Corporation:
 
-### IV. THE VIOLATED SAFETY ENGINEERING PRINCIPLE
-Industrial systems with a SIL 4 safety integrity level are strictly forbidden by design from allowing automation to override the analog relief controls of an authorized operator. The existence of these software flaws (CWE) violates the principle of resilience and Article 64 of the Spanish Railway Sector Act (Ley del Sector Ferroviario), by commercializing a rolling stock vehicle that lacks basic operational survivability against standard trackside network dropouts whose data stability cannot be guaranteed 365 days a year.
+1. **CWE-833 (*Deadlock*):** Mutual circular dependency between execution threads within the Real-Time Operating System (*RTOS*) managing external trackside communications and pneumatic brake release, freezing the state of the solenoid valves.
+2. **CWE-835 (*Loop with Unreachable Exit Condition - 'Infinite Loop'*):** Automatic reconnection routine lacking a reachable exit condition upon signal loss, monopolizing CPU compute cycles, bypassing *watchdog* timers, and inducing command *starvation* over physical cab controls.
+3. **CWE-617 (*Reachable Assertion*):** Extreme algorithmic condition executing an irrevocable stop by venting the brake pipe upon detecting zero external carrier signal, blocking subsequent manual mitigation.
 
-### V. CONCLUSIONS ON DIRECT LIABILITY BY OMISSION
-1. **Material Cause (Software):** Systemic software design flaw by the manufacturer, which prioritized software veto and deadlock over pilot sovereignty.
-2. **Penal Liability by Conscious Omission:** Having recorded evidence in technical audits and parliamentary records since 2025 that the fleet suffered from these specific weaknesses (CWE-833, CWE-400, and CWE-617) resulting in pressure bus lockups, operating companies and regulatory authorities (AESF) had a strict legal obligation to halt commercial service on that line until a software patch or a pure mechanical cut-off switch was installed in the cab. Maintaining commercial operation with full knowledge of this recurring structural flaw constitutes the core of liability by conscious omission in the disaster.
+---
+
+### III. RISK VECTORS AND PROPOSED MITIGATION
+* **Safety-Security Co-engineering (NIS 2 Directive / CLC/TS 50701):** Reliance on wireless links in ERTMS Level 2 environments (GSM-R / FRMCS) exposes this logical rigidity to Physical Denial of Service (*Physical DoS*) attacks via radio-frequency *jamming* or *spoofing*.
+* **MILS Isolation and Formal Verification:** Highlights the need to implement Multiple Independent Levels of Security (*MILS*) architectures and formal model checking using timed automata (**UPPAAL**) to mathematically guarantee deadlock freedom.
+* **Analog Safeguard:** Physical installation in the cab of a direct analog pneumatic isolation valve independent of the BCU to preserve human sovereignty during emergencies.
+
+---
+**Integrity Validation:** Authorship and consolidation date certified via cryptographic **SHA hash** in the repository `https://github.com`.
 
