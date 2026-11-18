@@ -1,7 +1,4 @@
 
-Jose Antonio Garcia Manzano <josea.garciamanzano@gmail.com>
-23:31 (hace 0 minutos)
-para mí
 
 # ANNEX I: EXECUTIVE SUMMARY OF INDUSTRIAL CYBERSECURITY AND MITRE CWE MAPPING
 
