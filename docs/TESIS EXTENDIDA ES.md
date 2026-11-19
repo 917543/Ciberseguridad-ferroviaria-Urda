@@ -163,11 +163,11 @@ Para erradicar este riesgo sistémico y garantizar el cumplimiento estricto del 
 * International Electrotechnical Commission. (2010). *Functional safety of electrical/electronic/programmable electronic safety-related systems* (Norma IEC 61508). IEC.
 * International Electrotechnical Commission. (2015). *Electronic railway equipment – Train communication network (TCN) – Part 2-3: TCN communication profile (TRDP)* (Norma IEC 61375-2-3:2015). IEC.
 * International Electrotechnical Commission. (2019). *Security for industrial automation and control systems – Part 4-2: Technical security requirements for IACS components* (Norma IEC 62443-4-2:2019). IEC.
-* MITRE Corporation. (2024a). *CWE-835: Loop with Unreachable Exit Condition ('Infinite Loop')* [Estándar de debilidades de software]. Common Weakness Enumeration. https://mitre.org
-* MITRE Corporation. (2024b). *CWE-617: Reachable Assertion* [Estándar de debilidades de software]. Common Weakness Enumeration. https://mitre.org
-* MITRE Corporation. (2024c). *CWE-833: Deadlock* [Estándar de debilidades de software]. Common Weakness Enumeration. https://mitre.org
-* National Institute of Standards and Technology. (2023). *Guide to operational technology (OT) security* (NIST Special Publication 800-82 Rev. 3). U.S. Department of Commerce. https://doi.org
-* National Institute of Standards and Technology. (2024). *The NIST Cybersecurity Framework (CSF) 2.0* (NIST CSWP 29). U.S. Department of Commerce. https://doi.org
+* MITRE Corporation. (2024a). *CWE-835: Loop with Unreachable Exit Condition ('Infinite Loop')* [Estándar de debilidades de software]. Common Weakness Enumeration. https://cwe.mitre.org/data/definitions/835
+* MITRE Corporation. (2024b). *CWE-617: Reachable Assertion* [Estándar de debilidades de software]. Common Weakness Enumeration. https://cwe.mitre.org/data/definitions/617
+* MITRE Corporation. (2024c). *CWE-833: Deadlock* [Estándar de debilidades de software]. Common Weakness Enumeration. https://cwe.mitre.org/data/definitions/833
+* National Institute of Standards and Technology. (2023). *Guide to operational technology (OT) security* (NIST Special Publication 800-82 Rev. 3). U.S. Department of Commerce. https://doi.org/10.6028/NIST.SP.800-82r3
+* National Institute of Standards and Technology. (2024). *The NIST Cybersecurity Framework (CSF) 2.0* (NIST CSWP 29). U.S. Department of Commerce. https://doi.org/10.6028/NIST.CSWP.29
 
 #### Fuentes Parlamentarias, Hemerográficas y de Acreditación
 * Diario de Sevilla. (2025). *Incidencias de comunicación en la red de alta velocidad: Los trenes de nueva generación pierden la señal de tierra y tardan en reconectarse*. Grupo Joly.
