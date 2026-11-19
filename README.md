@@ -3,7 +3,7 @@
 **La Pérdida de Soberanía Humana en Sistemas SIL 4: Análisis Funcional de la Presunta Inmovilización por Software del Material Rodante ETR 1000 en el Siniestro de Urda.**
 
 * **Autor:** Jose A. García Manzano
-* **Perfil:** Ciudadano Colaborador con la Justicia (Art. 259 LECrim) | Analista de Ciberseguridad de nivel inicial (Certificado por Google - Programa de 8 cursos).
+* **Perfil:** Ciudadano Colaborador | Analista de Ciberseguridad de nivel inicial (Certificado por Google - Programa de 8 cursos).
 * **Naturaleza del Proyecto:** Repositorio de investigación técnica, hipótesis lógica de vía de respaldo y verificación documental sujeta a comprobación pericial oficial (cajas negras ferroviarias).
 * **Licencia:** Creative Commons Atribución-CompartirIgual 4.0 Internacional (CC BY-SA 4.0).
 
